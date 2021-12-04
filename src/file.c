@@ -63,8 +63,6 @@ void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, char *nome) {
 	char *result;
 	int cont = 0;
 
-	double valor;
-	
 	file = fopen(nome, "r");
 
 	if(file == NULL) {
@@ -75,29 +73,18 @@ void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, char *nome) {
 
 		
 		while(!feof(file)) {
-			result = fgets(linha, 50, file);
+			result = fgets(linha, 100, file);
 
 			if(result) {
-				valor = atof(linha);
-				// printf("%lf\n", valor);
-
-				r.key = valor;
-				// printf("%lf\n", r.key);
+				r.key = atof(linha);
 
 				insertItemS(raizS, r);
 				insertItemAVL(raizAVL, r);
-
-				printf("inserindo na RB: %lf\n", r.key);
-
 				insertItemRB(raizRB, NULL, raizRB, r);
 
-				printf("inseriu na RB: %lf\n", r.key);
-
-				// preordemRB(*raizRB);
 				cont++;
 				printf("%d\n", cont);
 			}
-				
 		}
 	}
 	fclose(file);
