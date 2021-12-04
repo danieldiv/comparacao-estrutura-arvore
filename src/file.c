@@ -1,6 +1,6 @@
 #include "file.h"
 
-double get_random() { return ((double)rand() / (double)RAND_MAX *1000); }
+double get_random() { return (1 + (double)rand() / (double)RAND_MAX *100000); }
 
 /*
 	Funcao: randoValue, cria 6 arquivos.txt de (1000, 10000, 1000000) valores para insersao
@@ -57,35 +57,35 @@ void writeFile(char *nome, int max) {
 	Funcao: readFile, realiza a leitura de um arquivo e salva os valores nas arvores
 	@param nome: nome do arquivo para ser lido
 */
-void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, char *nome) {
-	FILE *file;
-	char linha[100];
-	char *result;
-	int cont = 0;
+// void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, char *nome) {
+// 	FILE *file;
+// 	char linha[100];
+// 	char *result;
+// 	int cont = 0;
 
-	file = fopen(nome, "r");
+// 	file = fopen(nome, "r");
 
-	if(file == NULL) {
-		printf("Erro ao abrir\n");
-		return;
-	} else {
-		Record r;
+// 	if(file == NULL) {
+// 		printf("Erro ao abrir\n");
+// 		return;
+// 	} else {
+// 		Record r;
 
 		
-		while(!feof(file)) {
-			result = fgets(linha, 100, file);
+// 		while(!feof(file)) {
+// 			result = fgets(linha, 100, file);
 
-			if(result) {
-				r.key = atof(linha);
+// 			if(result) {
+// 				r.key = atof(linha);
 
-				insertItemS(raizS, r);
-				insertItemAVL(raizAVL, r);
-				insertItemRB(raizRB, NULL, raizRB, r);
+// 				// insertItemS(raizS, r);
+// 				// insertItemAVL(raizAVL, r);
+// 				insertItemRB(raizRB, NULL, raizRB, r);
 
-				cont++;
-				printf("%d\n", cont);
-			}
-		}
-	}
-	fclose(file);
-}
+// 				cont++;
+// 				printf("%d\n", cont);
+// 			}
+// 		}
+// 	}
+// 	fclose(file);
+// }
