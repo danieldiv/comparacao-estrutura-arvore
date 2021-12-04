@@ -1,116 +1,86 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
+#include "file.h"
 
-// int main(void) {
-// 	FILE *file;
-// 	char linha[10];
-// 	char *result;
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
+void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 
-// 	// ==============================
-// 	// ESCRITA
-// 	// ==============================
-
-// 	file = fopen("arquivo.txt", "w");
-
-// 	fputs("456.551634\n", file);
-// 	fputs("320.117525\n", file);
-// 	fputs("74.682345\n", file);
-// 	fputs("506.254504\n", file);
-
-// 	char array[50];
-// 	double num = 264.553233;
-
-// 	sprintf(array, "%.6lf", num);
-// 	strcat(array, "\n");
-
-// 	fputs(array, file);
-
-// 	fputs("275.001674\n", file);
-// 	fputs("740.643421\n", file);
-
-
-// 	fclose(file);
-
-// 	// ==============================
-// 	// LEITURA
-// 	// ==============================
-	
-// 	file = fopen("arquivo.txt", "r");
-
-// 	if(file == NULL)
-// 		printf("Erro ao abrir\n");
-// 	else {
-// 		while(!feof(file)) {
-// 			result = fgets(linha, 50, file);
-
-// 			if(result)
-// 				printf("%s", linha);
-// 		}
-// 	}
-// 	fclose(file);
-
-// 	return 0;
-// }
-
-// #include <stdio.h>
-// #include <time.h>
-// #include <stdlib.h>
-
-// double get_random() { return ((double)rand() / (double)RAND_MAX *1000); }
-
-// int main()
-// {
-//     clock_t tempo;
-// 	tempo = clock();
-
-//     double n = 0;
-//     int cont = 0;
-//     srand(time(NULL)); // randomize seed
-
-//     for(int i=0; i < 100; i++) {
-//         n = get_random(); // call the function to get a different value of n every time
-//         printf("%f\n", n);  // print your number
-
-//     }
-//     printf("\n\nTempo: %f",(clock() - tempo) / (double)CLOCKS_PER_SEC);
-
-//     return 0;
-// }
-
-#include "treeRedblack.h"
+struct tm *local;
 
 int main() {
-
 	system("clear");
 
-	Tree *raiz;
+	TreeS *raizS;
+	TreeAVL *raizAVL;
+	TreeRB *raizRB;
+
+	raizS = createTreeS();
+	raizAVL = createTreeAVL();
+	raizRB = createTreeRB();
+
+	// insertAllTree(&raizS, &raizAVL, &raizRB);
+	// printAllTree(raizS, raizAVL, raizRB);
+
+	
+	clock_t tempo;
+	tempo = clock();
+
+	char nome[100];
+	strcpy(nome, "src/files/input1000.txt");
+	readFile(&raizS, &raizAVL, &raizRB, nome);
+
+	// printAllTree(raizS, raizAVL, raizRB);
+	printf("\nTempo: %f\n",(clock() - tempo) / (double)CLOCKS_PER_SEC);
+
+
+    return EXIT_SUCCESS;
+}
+
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
 	Record r;
 
-	raiz = createTree();
-
 	int vetor[] = {11,2,14,1,7,15,5,8,4};
-	// int vetor[] = {8,4,15,2,6,5,12,13};
-	// int vetor[] = {10,2,7,5,3,9,16,4,11,1,6,23,14};
-	// int vetor[] = {78,44,67,92,22,110,16,54,23,32,37};
+	
 	int tam = sizeof(vetor)/sizeof(vetor[0]);
 
-	Tree *aux;
-
-	for(int i=0; i < tam; i++) {
+	for(int i = 0; i < tam; i++) {
 		r.key = vetor[i];
-		insertItem(&raiz, &raiz, NULL, r);
+
+		insertItemS(raizS, r);
+		insertItemAVL(raizAVL, r);
+		insertItemRB(raizRB, NULL, raizRB, r);
 	}
+}
 
+void printAllTree(TreeS*raizS, TreeAVL *raizAVL, TreeRB *raizRB) {
+	printf("Arvore binaria simples\n");
 	printf("\nPRE ORDEN: { ");
-	preordem(raiz);
-
-	// printf("}\n\nCENTRAL: {\n");
-	// central(raiz);
-
-	printf("}\n\nPOS ORDEN: { ");
-	posordem(raiz);
+	preordemS(raizS);
+	
+	printf("}\nCENTRAL:   { ");
+	centralS(raizS);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemS(raizS);
 	printf("}\n");
 
-	return EXIT_SUCCESS;
+	printf("\nArvore binaria AVL\n");
+	printf("\nPRE ORDEN: { ");
+	preordemAVL(raizAVL);
+	
+	printf("}\nCENTRAL:   { ");
+	centralAVL(raizAVL);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemAVL(raizAVL);
+	printf("}\n");
+
+	printf("\nArvore binaria red blak\n");
+	printf("\nPRE ORDEN: { ");
+	preordemRB(raizRB);
+	
+	printf("}\nCENTRAL:   { ");
+	centralRB(raizRB);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemRB(raizRB);
+	printf("}\n");
 }
