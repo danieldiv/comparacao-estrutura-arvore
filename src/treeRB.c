@@ -294,16 +294,19 @@ void RB_delete(TreeRB* z, TreeRB* y, TreeRB *x){
     // free(z);
 }
 
-void search(TreeRB *aux, Record z){
+void search(TreeRB *aux, Record z, double *quant){
     while (aux != nill && z.key != aux->reg.key){
+        (*quant)++;
         if (z.key < aux->reg.key)
             aux = aux->LC;
         else 
             aux = aux->RC;
     }
-    if (aux->reg.key == z.key) {
-        printf("Node (%lf) found\n", z.key);
-    }
+
+    // if (aux->reg.key == z.key) {
+    //     return;
+    //     printf("Node (%lf) found\n", z.key);
+    // }
     // else 
         // printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
 }

@@ -116,7 +116,11 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int taman
 	char linha[100];
 	char text[20];
 	char *result;
-	int cont = 0;
+	int cont;
+	double quant;
+
+	cont = 0;
+	quant = 0;
 
 	sprintf(text, "%d", tamanho);
 	strcpy(linha, PATH_SEARCH);
@@ -136,16 +140,12 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int taman
 			if(result) {
 				r.key = atof(linha);
 
-				search(*raizRB, r);
-
-				// insertItemS(raizS, r);
-				// insertItemAVL(raizAVL, r);
-				// insertItemRB(raizRB, r);
+				search(*raizRB, r, &quant);
 
 				cont++;
 			}
 		}
 	}
-	printf("\n%d valores pesquisados\n", cont);
+	printf("\n%d valores pesquisados: (%.0lf) pesquisas realizadas\n", cont, quant);
 	fclose(file);
 }
