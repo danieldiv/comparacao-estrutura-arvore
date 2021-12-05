@@ -8,13 +8,13 @@
 #include "treeRB.h"
 
 #define PATH_INPUT "src/files/input"
-#define PATH_READ "src/files/read"
+#define PATH_SEARCH "src/files/search"
 
 void writeFile(char *nome, int max);
-void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho);
+void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho);
+void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho);
 void randomValue();
 
 double get_random();
-char* path_input();
 
 #endif

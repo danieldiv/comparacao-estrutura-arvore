@@ -2,7 +2,8 @@
 #include "time.h"
 
 int menu();
-int menuTamanho();
+int menuInput();
+int menuSearch();
 void resetTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
 void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
 void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
@@ -28,34 +29,45 @@ int main() {
 		
 		switch(op) {
 			case 1:
-                tam = menuTamanho();
+                tam = menuInput();
 
-                if(tam == 0) {
+                if(tam == 0)
                     printf("Nenhuma entrada selecionada!\n");    
-                } else {
+                else {
                     resetTree(&raizS, &raizAVL, &raizRB);
 				    
                     antes = clock();
                     printf("inserindo dados ...\n");
                     
-                    readFile(&raizS, &raizAVL, &raizRB, tam);
+                    readFileInput(&raizS, &raizAVL, &raizRB, tam);
 
                     depois = clock();
                     printf("Tempo de insersao: %lf\n", (depois - antes) / (double)CLOCKS_PER_SEC);
                 }
 			break;
 			case 2:
-                tamVetor = sizeof(pesquisa)/sizeof(pesquisa[0]);
+                // tamVetor = sizeof(pesquisa)/sizeof(pesquisa[0]);
                 
                 printf("searching...\n\n");
 
                 if(raizS == NULL || raizAVL == NULL || raizRB == NULL)
                     printf("As arvores estao vazias!\n");
                 else {
-                    for(int i=0; i < tamVetor; i++) {
-                        r.key = pesquisa[i];
-                        search_delete(raizRB, r);
+                    tam = menuSearch();
+
+                    if(tam == 0)
+                        printf("Nenhuma entrada selecionada!\n");    
+                    else {
+                        antes = clock();
+                        readFileSearch(&raizS, &raizAVL, &raizRB, tam);
+
+                        depois = clock();
+                        printf("Tempo de pesquisa: %lf\n", (depois - antes) / (double)CLOCKS_PER_SEC);
                     }
+                    // for(int i=0; i < tamVetor; i++) {
+                    //     r.key = pesquisa[i];
+                    //     search_delete(raizRB, r);
+                    // }
                 }
 			break;
 			case 3:
@@ -110,10 +122,10 @@ int menu() {
 }
 
 /**
- * @brief Menu de opcoes tamanho entrada
+ * @brief Menu de opcoes para tamanho da entrada
  * 
  */
-int menuTamanho() {
+int menuInput() {
 	int op;
 
     system("clear");
@@ -133,6 +145,34 @@ int menuTamanho() {
         case 1: return 1000;
         case 2: return 10000;
         case 3: return 1000000;
+        default: return 0;
+    }
+}
+
+/**
+ * @brief Menu de opcoes para tamanho da pesquisa
+ * 
+ */
+int menuSearch() {
+    int op;
+
+    system("clear");
+	printf("====================\n");
+	printf(" OPCOES DE PESQUISA\n");
+	printf("====================\n\n");
+	
+	printf("1 - 5000\n");
+	printf("2 - 10000\n");
+	printf("3 - 100000\n");
+	printf("0 - Sair\n\n");
+
+	printf("Escolha uma entrada: ");
+	scanf("%d", &op);
+
+    switch(op) {
+        case 1: return 5000;
+        case 2: return 10000;
+        case 3: return 100000;
         default: return 0;
     }
 }

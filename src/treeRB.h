@@ -34,6 +34,7 @@ void RB_transplant(TreeRB *aux,TreeRB *auxchild);
 
 void RB_delete_fix(TreeRB *x,TreeRB *w);
 void RB_delete(TreeRB* z,TreeRB* y,TreeRB *x);
+void search(TreeRB *aux, Record z);
 void search_delete(TreeRB *aux, Record z);
 
 void preordemRB(TreeRB *aux);

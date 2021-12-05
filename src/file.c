@@ -1,5 +1,9 @@
 #include "file.h"
 
+/**
+ * @brief Gera um numero aleatorio double entre 1 e 100000
+ * 
+ */
 double get_random() { return (1 + (double)rand() / (double)RAND_MAX *100000); }
 
 /**
@@ -62,7 +66,7 @@ void writeFile(char *nome, int max) {
  * @param raizRB ponteiro da arvore red black
  * @param tamanho valor do arquivo de entrada a ser aberto
  */
-void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
+void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
 	FILE *file;
 	char linha[100];
 	char text[20];
@@ -76,7 +80,7 @@ void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
 	file = fopen(linha, "r");
 
 	if(file == NULL) {
-		printf("Erro ao abrir\n");
+		printf("Erro ao abrir arquivo de entrada\n");
 		return;
 	} else {
 		Record r;
@@ -96,5 +100,52 @@ void readFile(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
 		}
 	}
 	printf("\n%d valores inseridos\n", cont);
+	fclose(file);
+}
+
+/**
+ * @brief Realiza a leitura de um arquivo e faz a pesquisa
+ * 
+ * @param raizS ponteiro da arvore simples
+ * @param raizAVL ponteiro da arvore AVL
+ * @param raizRB ponteiro da arvore red black
+ * @param tamanho valor do arquivo de entrada a ser aberto
+ */
+void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
+	FILE *file;
+	char linha[100];
+	char text[20];
+	char *result;
+	int cont = 0;
+
+	sprintf(text, "%d", tamanho);
+	strcpy(linha, PATH_SEARCH);
+	strcat(linha, strcat(text, ".txt"));
+
+	file = fopen(linha, "r");
+
+	if(file == NULL) {
+		printf("Erro ao abrir arquivo de pesquisa\n");
+		return;
+	} else {
+		Record r;
+		
+		while(!feof(file)) {
+			result = fgets(linha, 100, file);
+
+			if(result) {
+				r.key = atof(linha);
+
+				search(*raizRB, r);
+
+				// insertItemS(raizS, r);
+				// insertItemAVL(raizAVL, r);
+				// insertItemRB(raizRB, r);
+
+				cont++;
+			}
+		}
+	}
+	printf("\n%d valores pesquisados\n", cont);
 	fclose(file);
 }
