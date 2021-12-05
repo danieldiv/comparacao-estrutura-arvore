@@ -14,29 +14,32 @@ typedef struct  TreeRB TreeRB;
 
 struct TreeRB {
 	enum type color;
-	double key;
-	TreeRB *LC, *RC, *P;
+	Record reg;
+
+	TreeRB *LC;
+	TreeRB *RC;
+	TreeRB *P;
 };
 
-int inicializa(TreeRB **root);
+void inicializaTreeRB(TreeRB **root);
 
 TreeRB *tree_successor(TreeRB *aux_succ);
 
 void Left_Rotate(TreeRB **root, TreeRB *x);
 void Right_Rotate(TreeRB **root, TreeRB *y);
 void fix_insert(TreeRB **root, TreeRB *aux);
+void insertItemRB(TreeRB **root, Record r);
 void rb_insert(TreeRB **root, TreeRB *x,TreeRB *y,TreeRB *temp);
 void RB_transplant(TreeRB *aux,TreeRB *auxchild);
 
 void RB_delete_fix(TreeRB *x,TreeRB *w);
 void RB_delete(TreeRB* z,TreeRB* y,TreeRB *x);
-void search_delete(TreeRB *aux,double z);
+void search_delete(TreeRB *aux, Record z);
 
-void io_print(TreeRB *aux,TreeRB *auxnill);
-void tree_print(TreeRB *aux,TreeRB *nill);
+void preordemRB(TreeRB *aux);
+void centralRB(TreeRB *aux);
+void posordemRB(TreeRB *aux);
 
-void preordem(TreeRB *aux);
-void central(TreeRB *aux);
 int check(TreeRB *aux,int z,int chk);
 
 #endif

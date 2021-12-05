@@ -5,73 +5,37 @@
 
 TreeRB *temp, *nill;
 
-int inicializa(TreeRB **root){
-    system("clear");
-
-    double data = 0, chk = 0;
-
+void inicializaTreeRB(TreeRB **root){
+    (*root) = NULL;
     nill        =(TreeRB *) malloc(sizeof(TreeRB));
     nill->color = black;
     nill->LC    = NULL;
     nill->RC    = NULL;
     nill->P     = NULL;
-    nill->key   = 0;
-    (*root)        = nill;
-
-    int vetor[] = {11,2,14,1,7,15,5,8,4};
-    int tam = sizeof(vetor)/sizeof(vetor[0]);
-
-    FILE *file;
-	char linha[100];
-	char *result;
-	int cont = 0;
-
-    char nome[100];
-	strcpy(nome, "src/files/input1000.txt");
-
-	file = fopen(nome, "r");
-
-	if(file == NULL) {
-		printf("Erro ao abrir\n");
-	} else {
-		while(!feof(file)) {
-			result = fgets(linha, 100, file);
-
-			if(result) {
-                data = atof(linha);
-            if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
-                temp->P     = nill;
-                temp->LC    = nill;
-                temp->RC    = nill;
-                temp->key   = data;
-                temp->color = black;
-                chk         = check(*root,data,0);
-                if(chk == 0){
-                    rb_insert(root, *root, nill, temp);
-                }
-                else{
-                    printf("Node already registered: %lf\n", data);   fflush(stdout);
-                    free(temp);
-                }
-            }
-				cont++;
-			}
-		}
-		printf("cont total : %d\n", cont);
-	}
-	fclose(file);
-
-    double pesquisa[] = {21498.424782,79924.619786,64991.24182,19180.063206,4824.369977,63443.301733,16594.409617, 51439.424539};
-    tam = sizeof(pesquisa)/sizeof(pesquisa[0]);
-    
-    printf("searching\n\n");
-
-    for(int i=0; i < tam; i++) {
-        search_delete(*root, pesquisa[i]);
-    }
-    return 0;
+    nill->reg.key   = 0;
+    (*root)     = nill;
 }
 
+void insertItemRB(TreeRB **root, Record r) {
+    int chk = 0;
+
+    if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
+        temp->P     = nill;
+        temp->LC    = nill;
+        temp->RC    = nill;
+        temp->reg   = r;
+        temp->color = black;
+        chk         = check(*root,r.key,0);
+
+        if(chk == 0){
+            rb_insert(root, *root, nill, temp);
+        }
+        else{
+            printf("Node already registered: %lf\n", r.key);   fflush(stdout);
+            free(temp);
+        }
+    }
+}
 
 //left rotate x and x.RC
 void Left_Rotate(TreeRB **root, TreeRB *x){
@@ -113,7 +77,6 @@ void Right_Rotate(TreeRB **root, TreeRB *y){
 void fix_insert(TreeRB **root, TreeRB *aux){
     TreeRB *y;
     while (aux->P->color == red){	
-        //if aux->P is root do not do anything
         if (aux->P == aux->P->P->LC){
             y = aux->P->P->RC;
             //case 1 if uncle is red (red-red problem)
@@ -171,7 +134,7 @@ void rb_insert(TreeRB **root, TreeRB *x, TreeRB *y, TreeRB *temp){
     //save previous position in case of x==nill
     while (x != nill){				
         y = x;					
-        if (temp->key < x->key)
+        if (temp->reg.key < x->reg.key)
             x = x->LC;
         else 
             x = x->RC;
@@ -180,7 +143,7 @@ void rb_insert(TreeRB **root, TreeRB *x, TreeRB *y, TreeRB *temp){
     temp->P=y;
     if (y == nill)                  //if tree is empty				
         (*root) = temp;
-    else if (temp->key < y->key)    //if temp is placed on the left
+    else if (temp->reg.key < y->reg.key)    //if temp is placed on the left
         y->LC = temp;
     else                            //if temp is placed on the right
         y->RC = temp;
@@ -333,53 +296,59 @@ void RB_delete(TreeRB* z, TreeRB* y, TreeRB *x){
 
 //------------------------------------------------------------------------------
 //search for node to be deleted, begin at root and trace a simple path downward the tree
-void search_delete(TreeRB *aux, double z){
-    while (aux != nill && z != aux->key){
-        if (z < aux->key)
+void search_delete(TreeRB *aux, Record z){
+    while (aux != nill && z.key != aux->reg.key){
+        if (z.key < aux->reg.key)
             aux = aux->LC;
         else 
             aux = aux->RC;
     }
-    if (aux->key == z) {
-        printf("Node (%lf) found\n", z);
+    if (aux->reg.key == z.key) {
+        printf("Node (%lf) found\n", z.key);
         //     RB_delete(aux, aux, aux);
     }
     else 
-        printf("Node (%lf) does not exist\n", z);    fflush(stdout);
+        printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-void preordem(TreeRB *aux) {
-    if(aux != NULL) {
-        printf("%lf ", aux->key);
-        preordem(aux->LC);
-        preordem(aux->RC);
+void preordemRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        printf("%lf ", aux->reg.key);
+        preordemRB(aux->LC);
+        preordemRB(aux->RC);
     }
 }
 
-void central(TreeRB *aux) {
-    if(aux != NULL) {
-        central(aux->LC);
-        printf("%lf ", aux->key);
-        central(aux->RC);
+void centralRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        centralRB(aux->LC);
+        printf("%lf ", aux->reg.key);
+        centralRB(aux->RC);
+    }
+}
+
+void posordemRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        posordemRB(aux->LC);
+        posordemRB(aux->RC);
+        printf("%lf ", aux->reg.key);
     }
 }
 
 //print as a tree
-void tree_print(TreeRB *aux, TreeRB *nill){
-}
+// void tree_print(TreeRB *aux, TreeRB *nill){
+// }
 
 //check in case of overwrite
 int check(TreeRB *aux, int z, int chk){
     //compare each node with z
-    while (aux != nill && z != aux->key){
-        if (z < aux->key)
+    while (aux != nill && z != aux->reg.key){
+        if (z < aux->reg.key)
             aux = aux->LC;
         else 
             aux = aux->RC;
     }
-    if (aux->key == z)
+    if (aux->reg.key == z)
         chk = 1;
     return chk;
 }

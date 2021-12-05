@@ -1,168 +1,209 @@
-#include "treeRB.h"
+#include "file.h"
+#include "time.h"
 
-// int menu();
-// void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
-// void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
+int menu();
+int menuTamanho();
+void resetTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
+void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 
 int main() {
-	system("clear");
+	system("clear");    
 
-    printf("hello world\n");
+	int op, tam, tamVetor;
+    char tamanho[100];
 
-    TreeRB *raiz;
+	TreeS *raizS;
+	TreeAVL *raizAVL;
+	TreeRB *raizRB;
 
-    inicializa(&raiz);
+    Record r;
+    double pesquisa[] = {21498.424782,79924.619786,64991.24182,19180.063206,4824.369977,63443.301733,16594.409617, 51439.424539};
 
-// 	int op;
+    clock_t antes, depois;
 
-// 	TreeS *raizS;
-// 	TreeAVL *raizAVL;
-// 	TreeRB *raizRB;
+	do {
+		system("clear");
+        op = menu();
+		
+		switch(op) {
+			case 1:
+                tam = menuTamanho();
 
-// 	raizS = createTreeS();
-// 	raizAVL = createTreeAVL();
-// 	raizRB = createTreeRB();
+                if(tam == 0) {
+                    printf("Nenhuma entrada selecionada!\n");    
+                } else {
+                    resetTree(&raizS, &raizAVL, &raizRB);
+				    
+                    antes = clock();
+                    printf("inserindo dados ...\n");
+                    
+                    readFile(&raizS, &raizAVL, &raizRB, tam);
 
-// 	do {
-// 		system("clear");
-// 		op = menu();
+                    depois = clock();
+                    printf("Tempo de insersao: %lf\n", (depois - antes) / (double)CLOCKS_PER_SEC);
+                }
+			break;
+			case 2:
+                tamVetor = sizeof(pesquisa)/sizeof(pesquisa[0]);
+                
+                printf("searching...\n\n");
 
-// 		switch(op) {
-// 			case 1:
-// 				clock_t tempo;
-// 				tempo = clock();
+                if(raizS == NULL || raizAVL == NULL || raizRB == NULL)
+                    printf("As arvores estao vazias!\n");
+                else {
+                    for(int i=0; i < tamVetor; i++) {
+                        r.key = pesquisa[i];
+                        search_delete(raizRB, r);
+                    }
+                }
+			break;
+			case 3:
+				insertAllTree(&raizS, &raizAVL, &raizRB);
+				break;
+			case 0:
+				printf("O programa sera finalizado!\n");
+				return EXIT_SUCCESS;
+			default:
+				printf("Opcao invalida!\n");
+		}
 
-// 				char nome[100];
-// 				strcpy(nome, "src/files/input1000.txt");
-
-// 				printf("inserindo dados ...\n");
-// 				readFile(&raizS, &raizAVL, &raizRB, nome);
-// 			break;
-// 			case 2:
-// 				// imprimir(raiz);
-// 			break;
-// 			case 3:
-// 				insertAllTree(&raizS, &raizAVL, &raizRB);
-// 				break;
-// 			case 0:
-// 				printf("O programa sera finalizado!\n");
-// 				return EXIT_SUCCESS;
-// 			default:
-// 				printf("Opcao invalida!\n");
-// 		}
-
-// 		system("read -p \"\nPressione enter para continuar...\" continue");
-// 	} while (op != 0);
-
-
-
-// 	// insertAllTree(&raizS, &raizAVL, &raizRB);
-// 	// printAllTree(raizS, raizAVL, raizRB);
-
-	
-// 	// clock_t tempo;
-// 	// tempo = clock();
-
-// 	// char nome[100];
-// 	// strcpy(nome, "src/files/input1000.txt");
-
-// 	// printf("inserindo dados ...\n");
-// 	// readFile(&raizS, &raizAVL, &raizRB, nome);
-
-	
-	
-
-// 	// printf("\nTempo: %f\n",(clock() - tempo) / (double)CLOCKS_PER_SEC);
-
+		system("read -p \"\nPressione enter para continuar...\" continue");
+	} while (op != 0);
 
     return EXIT_SUCCESS;
 }
 
-// int menu() {
-// 	int op;
+/**
+ * @brief Reinicia as tres arvores
+ * 
+ * @param raizS ponteiro da arvore simples
+ * @param raizAVL ponteiro da arvore AVL
+ * @param raizRB ponteiro da arvore red black
+ */
+void resetTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
+    (*raizS) = createTreeS();
+	(*raizAVL) = createTreeAVL();
+    inicializaTreeRB(raizRB);
+}
 
-// 	printf("====================\n");
-// 	printf("   MENU DE OPCOES\n");
-// 	printf("====================\n\n");
+/**
+ * @brief Menu de opcoes principal
+ * 
+ */
+int menu() {
+	int op;
+
+	printf("====================\n");
+	printf("   MENU DE OPCOES\n");
+	printf("====================\n\n");
 	
-// 	printf("1 - Incializar arvore\n");
-// 	printf("2 - Pesquisar\n");
-// 	printf("3 - Arvore teste\n");
-// 	printf("0 - Sair\n\n");
+	printf("1 - Incializar arvore\n");
+	printf("2 - Pesquisar\n");
+	printf("3 - Arvore teste\n");
+	printf("0 - Sair\n\n");
 
-// 	printf("Escolha uma opção: ");
-// 	scanf("%d", &op);
+	printf("Escolha uma opção: ");
+	scanf("%d", &op);
 
-// 	return op;
-// }
+	return op;
+}
 
-// /**
-//  * @brief Insere e imprime os valores (11,2,14,1,7,15,5,8,4) nas tres arvores
-//  * 
-//  * @param raizS ponteiro da arvore simples
-//  * @param raizAVL ponteiro da arvore AVL
-//  * @param raizRB ponteiro da arvore red black
-//  */
-// void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
-// 	*raizS = createTreeS();
-// 	*raizAVL = createTreeAVL();
-// 	*raizRB = createTreeRB();
+/**
+ * @brief Menu de opcoes tamanho entrada
+ * 
+ */
+int menuTamanho() {
+	int op;
 
-// 	Record r;
-
-// 	int vetor[] = {11,2,14,1,7,15,5,8,4};
-// 	// int vetor[] = {10,2,7,5,3,9,16,4,11,1,6,23,14};
+    system("clear");
+	printf("====================\n");
+	printf("  OPCOES DE ENTRADA\n");
+	printf("====================\n\n");
 	
-// 	int tam = sizeof(vetor)/sizeof(vetor[0]);
+	printf("1 - 1000\n");
+	printf("2 - 10000\n");
+	printf("3 - 1000000\n");
+	printf("0 - Sair\n\n");
 
-// 	for(int i = 0; i < tam; i++) {
-// 		r.key = vetor[i];
+	printf("Escolha uma entrada: ");
+	scanf("%d", &op);
 
-// 		insertItemS(raizS, r);
-// 		insertItemAVL(raizAVL, r);
-// 		insertItemRB(raizRB, NULL, raizRB, r);
-// 	}
-// 	printAllTree(*raizS, *raizAVL, *raizRB);
-// }
+    switch(op) {
+        case 1: return 1000;
+        case 2: return 10000;
+        case 3: return 1000000;
+        default: return 0;
+    }
+}
 
-// /**
-//  * @brief Imprime os valores salvos nas tres arvores
-//  * 
-//  * @param raizS ponteiro da arvore simples
-//  * @param raizAVL ponteiro da arvore AVL
-//  * @param raizRB ponteiro da arvore red black
-//  */
-// void printAllTree(TreeS*raizS, TreeAVL *raizAVL, TreeRB *raizRB) {
-// 	printf("Arvore binaria simples\n");
-// 	printf("\nPRE ORDEN: { ");
-// 	preordemS(raizS);
-	
-// 	printf("}\nCENTRAL:   { ");
-// 	centralS(raizS);
-	
-// 	printf("}\nPOS ORDEN: { ");
-// 	posordemS(raizS);
-// 	printf("}\n");
+/**
+ * @brief Insere e imprime os valores (11,2,14,1,7,15,5,8,4) nas tres arvores
+ * 
+ * @param raizS ponteiro da arvore simples
+ * @param raizAVL ponteiro da arvore AVL
+ * @param raizRB ponteiro da arvore red black
+ */
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
+	*raizS = createTreeS();
+	*raizAVL = createTreeAVL();
+    inicializaTreeRB(raizRB);
 
-// 	printf("\nArvore binaria AVL\n");
-// 	printf("\nPRE ORDEN: { ");
-// 	preordemAVL(raizAVL);
-	
-// 	printf("}\nCENTRAL:   { ");
-// 	centralAVL(raizAVL);
-	
-// 	printf("}\nPOS ORDEN: { ");
-// 	posordemAVL(raizAVL);
-// 	printf("}\n");
+	Record r;
 
-// 	printf("\nArvore binaria red blak\n");
-// 	printf("\nPRE ORDEN: { ");
-// 	preordemRB(raizRB);
+	int vetor[] = {11,2,14,1,7,15,5,8,4};
+	// int vetor[] = {10,2,7,5,3,9,16,4,11,1,6,23,14};
 	
-// 	printf("}\nCENTRAL:   { ");
-// 	centralRB(raizRB);
+	int tam = sizeof(vetor)/sizeof(vetor[0]);
+
+	for(int i = 0; i < tam; i++) {
+		r.key = vetor[i];
+
+		insertItemS(raizS, r);
+		insertItemAVL(raizAVL, r);
+        insertItemRB(raizRB, r);
+	}
+	printAllTree(*raizS, *raizAVL, *raizRB);
+}
+
+/**
+ * @brief Imprime os valores salvos nas tres arvores
+ * 
+ * @param raizS ponteiro da arvore simples
+ * @param raizAVL ponteiro da arvore AVL
+ * @param raizRB ponteiro da arvore red black
+ */
+void printAllTree(TreeS*raizS, TreeAVL *raizAVL, TreeRB *raizRB) {
+	printf("Arvore binaria simples\n");
+	printf("\nPRE ORDEN: { ");
+	preordemS(raizS);
 	
-// 	printf("}\nPOS ORDEN: { ");
-// 	posordemRB(raizRB);
-// 	printf("}\n");
-// }
+	printf("}\nCENTRAL:   { ");
+	centralS(raizS);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemS(raizS);
+	printf("}\n");
+
+	printf("\nArvore binaria AVL\n");
+	printf("\nPRE ORDEN: { ");
+	preordemAVL(raizAVL);
+	
+	printf("}\nCENTRAL:   { ");
+	centralAVL(raizAVL);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemAVL(raizAVL);
+	printf("}\n");
+
+	printf("\nArvore binaria red black\n");
+	printf("\nPRE ORDEN: { ");
+	preordemRB(raizRB);
+	
+	printf("}\nCENTRAL:   { ");
+	centralRB(raizRB);
+	
+	printf("}\nPOS ORDEN: { ");
+	posordemRB(raizRB);
+	printf("}\n");
+}
