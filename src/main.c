@@ -11,17 +11,15 @@ void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 int main() {
 	system("clear");    
 
-	int op, tam, tamVetor;
-    char tamanho[100];
+	int op, tam;
 
 	TreeS *raizS;
 	TreeAVL *raizAVL;
 	TreeRB *raizRB;
 
-    Record r;
-    double pesquisa[] = {21498.424782,79924.619786,64991.24182,19180.063206,4824.369977,63443.301733,16594.409617, 51439.424539};
-
-    clock_t antes, depois;
+	double t_inputS, t_inputAVL, t_inputRB;
+	double t_searchS, t_searchAVL, t_searchRB;
+	double t_total;
 
 	do {
 		system("clear");
@@ -36,18 +34,19 @@ int main() {
                 else {
                     resetTree(&raizS, &raizAVL, &raizRB);
 				    
-                    antes = clock();
                     printf("inserindo dados ...\n");
                     
-                    readFileInput(&raizS, &raizAVL, &raizRB, tam);
+                    readFileInput(&raizS, &raizAVL, &raizRB, tam, &t_inputS, &t_inputAVL, &t_inputRB);
 
-                    depois = clock();
-                    printf("Tempo de insersao: %lf\n", (depois - antes) / (double)CLOCKS_PER_SEC);
+					t_total = (t_inputS + t_inputRB + t_inputAVL);
+
+                    printf("\nTempo total de insersao: %lf\n", t_total);
+					printf("Tempo arvore Simples: %lf\n", t_inputS);
+					printf("Tempo arvore AVL: %lf\n", t_inputAVL);
+					printf("Tempo arvore Red Black: %lf\n", t_inputRB);
                 }
 			break;
 			case 2:
-                // tamVetor = sizeof(pesquisa)/sizeof(pesquisa[0]);
-                
                 printf("searching...\n\n");
 
                 if(raizS == NULL || raizAVL == NULL || raizRB == NULL)
@@ -58,16 +57,15 @@ int main() {
                     if(tam == 0)
                         printf("Nenhuma entrada selecionada!\n");    
                     else {
-                        antes = clock();
-                        readFileSearch(&raizS, &raizAVL, &raizRB, tam);
+                        readFileSearch(&raizS, &raizAVL, &raizRB, tam, &t_searchS, &t_searchAVL, &t_searchRB);
 
-                        depois = clock();
-                        printf("Tempo de pesquisa: %lf\n", (depois - antes) / (double)CLOCKS_PER_SEC);
+                        t_total = (t_inputS + t_inputRB + t_inputAVL);
+
+                        printf("\nTempo total de pesquisa: %lf\n", t_total);
+						printf("Tempo arvore Simples: %lf\n", t_inputS);
+						printf("Tempo arvore AVL: %lf\n", t_inputAVL);
+						printf("Tempo arvore Red Black: %lf\n", t_inputRB);
                     }
-                    // for(int i=0; i < tamVetor; i++) {
-                    //     r.key = pesquisa[i];
-                    //     search_delete(raizRB, r);
-                    // }
                 }
 			break;
 			case 3:

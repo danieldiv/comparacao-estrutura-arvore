@@ -11,8 +11,8 @@
 #define PATH_SEARCH "src/files/search"
 
 void writeFile(char *nome, int max);
-void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho);
-void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho);
+void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
+void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
 void randomValue();
 
 double get_random();

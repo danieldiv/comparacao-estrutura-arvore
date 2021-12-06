@@ -19,14 +19,16 @@ void insertItemS(TreeS **t, Record r) {
 	}
 }
 
-void pesquisaS(TreeS **t, TreeS **aux, Record r) {
+void pesquisaS(TreeS **t, TreeS **aux, Record r, double *quant) {
+	(*quant)++;
+
 	if(*t == NULL) {
-		printf("[ERRO]: Node (%lf) not found!\n", r.key);
+		// printf("[ERRO]: Node (%lf) not found!\n", r.key);
 		return;
 	}
 
-	if((*t)->reg.key > r.key) { pesquisaS(&(*t)->esq, aux, r); return; }
-	if((*t)->reg.key < r.key) { pesquisaS(&(*t)->dir, aux, r); return; }
+	if((*t)->reg.key > r.key) { pesquisaS(&(*t)->esq, aux, r, quant); return; }
+	if((*t)->reg.key < r.key) { pesquisaS(&(*t)->dir, aux, r, quant); return; }
 
 	*aux = *t;
 }

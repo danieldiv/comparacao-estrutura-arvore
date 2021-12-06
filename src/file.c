@@ -66,41 +66,81 @@ void writeFile(char *nome, int max) {
  * @param raizRB ponteiro da arvore red black
  * @param tamanho valor do arquivo de entrada a ser aberto
  */
-void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
-	FILE *file;
+void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB) {
+	FILE *fileS, *fileAVL, *fileRB;
+
+	clock_t time;
+
 	char linha[100];
 	char text[20];
 	char *result;
+
 	int cont = 0;
 
-	sprintf(text, "%d", tamanho);
+	sprintf(text, "%d", tam);
 	strcpy(linha, PATH_INPUT);
 	strcat(linha, strcat(text, ".txt"));
 
-	file = fopen(linha, "r");
+	fileS = fopen(linha, "r");
+	fileAVL = fopen(linha, "r");
+	fileRB = fopen(linha, "r");
 
-	if(file == NULL) {
+	if(fileS == NULL) {
 		printf("Erro ao abrir arquivo de entrada\n");
 		return;
 	} else {
 		Record r;
 		
-		while(!feof(file)) {
-			result = fgets(linha, 100, file);
+		time = clock();
+
+		while(!feof(fileS)) {
+			result = fgets(linha, 100, fileS);
 
 			if(result) {
 				r.key = atof(linha);
 
 				insertItemS(raizS, r);
+
+				cont++;
+			}
+		}
+		*tS = ((clock() - time) / (double)CLOCKS_PER_SEC); // 1
+
+		time = clock();
+
+		while(!feof(fileAVL)) {
+			result = fgets(linha, 100, fileAVL);
+
+			if(result) {
+				r.key = atof(linha);
+
 				insertItemAVL(raizAVL, r);
+
+				cont++;
+			}
+		}
+		*tAVL = ((clock() - time) / (double)CLOCKS_PER_SEC); // 2
+
+		time = clock();
+
+		while(!feof(fileRB)) {
+			result = fgets(linha, 100, fileRB);
+
+			if(result) {
+				r.key = atof(linha);
+
 				insertItemRB(raizRB, r);
 
 				cont++;
 			}
 		}
+		*tRB = ((clock() - time) / (double)CLOCKS_PER_SEC); // 3
 	}
-	printf("\n%d valores inseridos\n", cont);
-	fclose(file);
+	printf("\n%d valores inseridos no total\n", cont);
+	
+	fclose(fileS);
+	fclose(fileAVL);
+	fclose(fileRB);
 }
 
 /**
@@ -111,18 +151,24 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanh
  * @param raizRB ponteiro da arvore red black
  * @param tamanho valor do arquivo de entrada a ser aberto
  */
-void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tamanho) {
+void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB) {
+	TreeS *aux1;
+	TreeAVL *aux2;
+	
 	FILE *file;
+
+	clock_t time;
+	
 	char linha[100];
 	char text[20];
 	char *result;
+
+	double quantS, quantAVL, quantRB;
 	int cont;
-	double quant;
 
-	cont = 0;
-	quant = 0;
+	cont = quantS = quantAVL = quantRB = 0;
 
-	sprintf(text, "%d", tamanho);
+	sprintf(text, "%d", tam);
 	strcpy(linha, PATH_SEARCH);
 	strcat(linha, strcat(text, ".txt"));
 
@@ -140,12 +186,17 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int taman
 			if(result) {
 				r.key = atof(linha);
 
-				search(*raizRB, r, &quant);
+				pesquisaS(raizS, &aux1, r, &quantS);
+				pesquisaAVL(raizAVL, &aux2, r, &quantAVL);
+				searchRB(*raizRB, r, &quantRB);
 
 				cont++;
 			}
 		}
 	}
-	printf("\n%d valores pesquisados: (%.0lf) pesquisas realizadas\n", cont, quant);
+	printf("\n%d valores pesquisados\n\n", cont);
+	printf("(%.0lf) pesquisas realizadas arvore Simples\n", quantS);
+	printf("(%.0lf) pesquisas realizadas arvore AVL\n", quantAVL);
+	printf("(%.0lf) pesquisas realizadas arvore RB\n\n", quantRB);
 	fclose(file);
 }

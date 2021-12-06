@@ -26,7 +26,7 @@ struct TreeS {
 
 TreeS* createTreeS();
 void insertItemS(TreeS **t, Record r);
-void pesquisaS(TreeS **t, TreeS **aux, Record r);
+void pesquisaS(TreeS **t, TreeS **aux, Record r, double *quant);
 
 void antecessorS(TreeS **t, TreeS *aux);
 void removeItemS(TreeS **t, TreeS **f, Record r);

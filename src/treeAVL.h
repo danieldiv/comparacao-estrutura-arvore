@@ -19,7 +19,7 @@ struct TreeAVL {
 
 TreeAVL* createTreeAVL();
 void insertItemAVL(TreeAVL **t, Record r);
-void pesquisaAVL(TreeAVL **t, TreeAVL **aux, Record r);
+void pesquisaAVL(TreeAVL **t, TreeAVL **aux, Record r, double *quant);
 
 void antecessorAVL(TreeAVL **t, TreeAVL *aux);
 void removeItemAVL(TreeAVL **t, TreeAVL **f, Record r);

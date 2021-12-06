@@ -294,7 +294,7 @@ void RB_delete(TreeRB* z, TreeRB* y, TreeRB *x){
     // free(z);
 }
 
-void search(TreeRB *aux, Record z, double *quant){
+void searchRB(TreeRB *aux, Record z, double *quant){
     while (aux != nill && z.key != aux->reg.key){
         (*quant)++;
         if (z.key < aux->reg.key)
