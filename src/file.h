@@ -10,10 +10,19 @@
 #define PATH_INPUT "src/files/input"
 #define PATH_SEARCH "src/files/search"
 
+typedef struct Vetor Vetor;
+
+struct Vetor {
+    double key;
+    Vetor *prox;
+};
+
+
 void writeFile(char *nome, int max);
 void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
 void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
 void randomValue();
+void corrigeFile1000000(TreeRB **raizRB);
 
 double get_random();
 

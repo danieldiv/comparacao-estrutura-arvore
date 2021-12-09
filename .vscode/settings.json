@@ -6,6 +6,8 @@
         "treerb.h": "c",
         "stdbool.h": "c",
         "assert.h": "c",
-        "file.h": "c"
+        "file.h": "c",
+        "limits": "c",
+        "time.h": "c"
     }
 }

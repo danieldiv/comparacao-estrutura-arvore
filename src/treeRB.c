@@ -16,7 +16,7 @@ void inicializaTreeRB(TreeRB **root){
     (*root)     = nill;
 }
 
-void insertItemRB(TreeRB **root, Record r) {
+void insertItemRB(TreeRB **root, Record r, int *contadorRP, int *cont) {
     int chk = 0;
 
     if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
@@ -29,9 +29,11 @@ void insertItemRB(TreeRB **root, Record r) {
 
         if(chk == 0){
             rb_insert(root, *root, nill, temp);
+            (*cont)++;
         }
         else{
-            printf("Node already registered: %lf\n", r.key);   fflush(stdout);
+            printf("Node already registered: %lf\n", r.key);
+            (*contadorRP)++;
             free(temp);
         }
     }
@@ -356,8 +358,7 @@ void posordemRB(TreeRB *aux) {
 // }
 
 //check in case of overwrite
-int check(TreeRB *aux, int z, int chk){
-    //compare each node with z
+int check(TreeRB *aux, double z, int chk){
     while (aux != nill && z != aux->reg.key){
         if (z < aux->reg.key)
             aux = aux->LC;

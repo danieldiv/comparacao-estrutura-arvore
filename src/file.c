@@ -85,6 +85,8 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
 	fileAVL = fopen(linha, "r");
 	fileRB = fopen(linha, "r");
 
+	int contadorRP = 0;
+
 	if(fileS == NULL) {
 		printf("Erro ao abrir arquivo de entrada\n");
 		return;
@@ -98,9 +100,7 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
 
 			if(result) {
 				r.key = atof(linha);
-
 				insertItemS(raizS, r);
-
 				cont++;
 			}
 		}
@@ -113,9 +113,7 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
 
 			if(result) {
 				r.key = atof(linha);
-
 				insertItemAVL(raizAVL, r);
-
 				cont++;
 			}
 		}
@@ -128,15 +126,13 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
 
 			if(result) {
 				r.key = atof(linha);
-
-				insertItemRB(raizRB, r);
-
-				cont++;
+				insertItemRB(raizRB, r, &contadorRP, &cont);
 			}
 		}
 		*tRB = ((clock() - time) / (double)CLOCKS_PER_SEC); // 3
 	}
 	printf("\n%d valores inseridos no total\n", cont);
+	printf("\n%d valores repetidos\n", contadorRP);
 	
 	fclose(fileS);
 	fclose(fileAVL);
@@ -152,19 +148,18 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
  * @param tamanho valor do arquivo de entrada a ser aberto
  */
 void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB) {
+	FILE *fileS, *fileAVL, *fileRB;
 	TreeS *aux1;
 	TreeAVL *aux2;
-	
-	FILE *file;
 
 	clock_t time;
-	
+
 	char linha[100];
 	char text[20];
 	char *result;
 
-	double quantS, quantAVL, quantRB;
 	int cont;
+	double quantS, quantAVL, quantRB;
 
 	cont = quantS = quantAVL = quantRB = 0;
 
@@ -172,31 +167,136 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 	strcpy(linha, PATH_SEARCH);
 	strcat(linha, strcat(text, ".txt"));
 
-	file = fopen(linha, "r");
+	fileS = fopen(linha, "r");
+	fileAVL = fopen(linha, "r");
+	fileRB = fopen(linha, "r");
 
-	if(file == NULL) {
+	if(fileS == NULL) {
 		printf("Erro ao abrir arquivo de pesquisa\n");
 		return;
 	} else {
 		Record r;
 		
-		while(!feof(file)) {
-			result = fgets(linha, 100, file);
+		time = clock();
+
+		while(!feof(fileS)) {
+			result = fgets(linha, 100, fileS);
 
 			if(result) {
 				r.key = atof(linha);
-
 				pesquisaS(raizS, &aux1, r, &quantS);
-				pesquisaAVL(raizAVL, &aux2, r, &quantAVL);
-				searchRB(*raizRB, r, &quantRB);
-
 				cont++;
 			}
 		}
+		*tS = ((clock() - time) / (double)CLOCKS_PER_SEC); // 1
+
+		time = clock();
+
+		while(!feof(fileAVL)) {
+			result = fgets(linha, 100, fileAVL);
+
+			if(result) {
+				r.key = atof(linha);
+				pesquisaAVL(raizAVL, &aux2, r, &quantAVL);
+				cont++;
+			}
+		}
+		*tAVL = ((clock() - time) / (double)CLOCKS_PER_SEC); // 2
+
+		time = clock();
+
+		while(!feof(fileRB)) {
+			result = fgets(linha, 100, fileRB);
+
+			if(result) {
+				r.key = atof(linha);
+				searchRB(*raizRB, r, &quantRB);
+				cont++;
+			}
+		}
+		*tRB = ((clock() - time) / (double)CLOCKS_PER_SEC); // 3
 	}
+	fclose(fileS);
+	fclose(fileAVL);
+	fclose(fileRB);
+	
 	printf("\n%d valores pesquisados\n\n", cont);
 	printf("(%.0lf) pesquisas realizadas arvore Simples\n", quantS);
 	printf("(%.0lf) pesquisas realizadas arvore AVL\n", quantAVL);
-	printf("(%.0lf) pesquisas realizadas arvore RB\n\n", quantRB);
-	fclose(file);
+	printf("(%.0lf) pesquisas realizadas arvore RB\n", quantRB);
 }
+
+/**
+ * @brief Realiza a correcao do arquivo de 1000000 de entradas para arquivos repetidos
+ * @param raizRB ponteiro da raiz red black
+ */
+// void corrigeFile1000000(TreeRB **raizRB) {
+// 	FILE *file;
+
+// 	clock_t time;
+
+// 	char linha[100];
+// 	char text[20];
+// 	char *result;
+
+// 	int cont = 0;
+// 	int tam = 1000000;
+
+// 	sprintf(text, "%d", tam);
+// 	strcpy(linha, PATH_INPUT);
+// 	strcat(linha, strcat(text, ".txt"));
+
+// 	file = fopen(linha, "r");
+
+// //====================
+// 	// FILE *fileNew;
+// 	// char array[100];
+// 	// char *result;
+
+// 	// double n = 0;
+//     // int cont = 0;
+
+// 	// fileNew = fopen("src/files/input10000002.txt", "w");
+// 	// double aux = 0;
+
+//     // for(int i=0; i < max; i++) {
+//         // n = get_random();
+// 		// sprintf(linha, "%.6lf", n);
+// 		// strcat(linha, "\n");
+// 		// fputs(linha, fileNew);
+//     // }
+// 	// fclose(fileNew);
+// //====================
+
+// 	int contadorRP = 0;
+
+// 	if(file == NULL) {
+// 		printf("Erro ao abrir arquivo de entrada\n");
+// 		return;
+// 	} else {
+// 		printf("inserindo %d arquivos...\n", tam);
+// 		Record r;
+		
+// 		time = clock();
+
+// 		while(!feof(file)) {
+// 			result = fgets(linha, 100, file);
+
+// 			if(result) {
+// 				r.key = atof(linha);
+// 				// item.val = r.key;
+// 				insertItemRB(raizRB, r, &contadorRP, &cont);
+// 				// insertItemRB(raizRB, r, &contadorRP, &cont, &aux);
+
+// 				sprintf(linha, "%.6lf", aux);
+// 				strcat(linha, "\n");
+// 				fputs(linha, fileNew);
+// 			}
+// 		}
+// 	}
+// 	printf("salvou %d arquivos\n", cont);
+// 	printf("%d arquivos repetidos\n", contadorRP);
+	
+// 	fclose(file);
+	
+// }

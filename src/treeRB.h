@@ -28,7 +28,7 @@ TreeRB *tree_successor(TreeRB *aux_succ);
 void Left_Rotate(TreeRB **root, TreeRB *x);
 void Right_Rotate(TreeRB **root, TreeRB *y);
 void fix_insert(TreeRB **root, TreeRB *aux);
-void insertItemRB(TreeRB **root, Record r);
+void insertItemRB(TreeRB **root, Record r, int *contadorRP, int *cont);
 void rb_insert(TreeRB **root, TreeRB *x,TreeRB *y,TreeRB *temp);
 void RB_transplant(TreeRB *aux,TreeRB *auxchild);
 
@@ -42,6 +42,6 @@ void preordemRB(TreeRB *aux);
 void centralRB(TreeRB *aux);
 void posordemRB(TreeRB *aux);
 
-int check(TreeRB *aux,int z,int chk);
+int check(TreeRB *aux,double z,int chk);
 
 #endif

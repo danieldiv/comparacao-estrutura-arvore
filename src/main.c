@@ -1,17 +1,19 @@
 #include "file.h"
-#include "time.h"
 
 int menu();
 int menuInput();
 int menuSearch();
 void resetTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
-void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int *tam_aux);
 void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 
 int main() {
-	system("clear");    
+	system("clear");   
 
-	int op, tam;
+	// randomValue();
+	
+
+	int op, tam, tam_aux = 0;
 
 	TreeS *raizS;
 	TreeAVL *raizAVL;
@@ -20,6 +22,12 @@ int main() {
 	double t_inputS, t_inputAVL, t_inputRB;
 	double t_searchS, t_searchAVL, t_searchRB;
 	double t_total;
+
+	resetTree(&raizS, &raizAVL, &raizRB);
+
+	// corrigeFile1000000(&raizRB);
+
+	// return 0; 
 
 	do {
 		system("clear");
@@ -37,10 +45,11 @@ int main() {
                     printf("inserindo dados ...\n");
                     
                     readFileInput(&raizS, &raizAVL, &raizRB, tam, &t_inputS, &t_inputAVL, &t_inputRB);
+					tam_aux = tam;
 
 					t_total = (t_inputS + t_inputRB + t_inputAVL);
 
-                    printf("\nTempo total de insersao: %lf\n", t_total);
+                    printf("\nTempo total de insersao: %lf\n\n", t_total);
 					printf("Tempo arvore Simples: %lf\n", t_inputS);
 					printf("Tempo arvore AVL: %lf\n", t_inputAVL);
 					printf("Tempo arvore Red Black: %lf\n", t_inputRB);
@@ -57,19 +66,22 @@ int main() {
                     if(tam == 0)
                         printf("Nenhuma entrada selecionada!\n");    
                     else {
+						printf("\nArvores com %d entradas\n", tam_aux);
+						printf("searching %d valores...\n", tam);
+
                         readFileSearch(&raizS, &raizAVL, &raizRB, tam, &t_searchS, &t_searchAVL, &t_searchRB);
 
-                        t_total = (t_inputS + t_inputRB + t_inputAVL);
+                        t_total = (t_searchS + t_searchRB + t_searchAVL);
 
-                        printf("\nTempo total de pesquisa: %lf\n", t_total);
-						printf("Tempo arvore Simples: %lf\n", t_inputS);
-						printf("Tempo arvore AVL: %lf\n", t_inputAVL);
-						printf("Tempo arvore Red Black: %lf\n", t_inputRB);
+                        printf("\nTempo total de pesquisa: %lf\n\n", t_total);
+						printf("Tempo arvore Simples: %lf\n", t_searchS);
+						printf("Tempo arvore AVL: %lf\n", t_searchAVL);
+						printf("Tempo arvore Red Black: %lf\n", t_searchRB);
                     }
                 }
 			break;
 			case 3:
-				insertAllTree(&raizS, &raizAVL, &raizRB);
+				insertAllTree(&raizS, &raizAVL, &raizRB, &tam_aux);
 				break;
 			case 0:
 				printf("O programa sera finalizado!\n");
@@ -181,11 +193,13 @@ int menuSearch() {
  * @param raizS ponteiro da arvore simples
  * @param raizAVL ponteiro da arvore AVL
  * @param raizRB ponteiro da arvore red black
+ * @param tam_aux tamanho da arvore que sera inserida
  */
-void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
+void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int *tam_aux) {
 	*raizS = createTreeS();
 	*raizAVL = createTreeAVL();
     inicializaTreeRB(raizRB);
+	int cont = 0, contRP = 0;
 
 	Record r;
 
@@ -193,13 +207,14 @@ void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB) {
 	// int vetor[] = {10,2,7,5,3,9,16,4,11,1,6,23,14};
 	
 	int tam = sizeof(vetor)/sizeof(vetor[0]);
+	*tam_aux = tam;
 
 	for(int i = 0; i < tam; i++) {
 		r.key = vetor[i];
 
 		insertItemS(raizS, r);
 		insertItemAVL(raizAVL, r);
-        insertItemRB(raizRB, r);
+        insertItemRB(raizRB, r, &contRP, &cont);
 	}
 	printAllTree(*raizS, *raizAVL, *raizRB);
 }

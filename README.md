@@ -26,3 +26,5 @@ Comparacao das estruturas tipo arvore
 > AVL - AVL
 
 > RB - RedBlack
+
+- A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem proximo da arvore simples e AVL, nao compensando utilizar para entradas pequenas
