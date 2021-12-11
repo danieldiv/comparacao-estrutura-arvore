@@ -6,17 +6,17 @@ Eng. Computação - 4º período - AEDS II
 
 ## Dados utilizados para analize
 
-> Os tempos de pesquisa e insercao podem variavar
+> Os tempos de pesquisa e insercao podem variavar em cada maquina
 
 > A quantidade de pesquisa sera a mesma em qualquer maquina
 
 <p align="center">
-    <img src="src/img/1.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/4.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/2.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/5.jpeg" alt="teste"   width="350"></img>
-    <img src="src/img/3.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/6.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/7.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/8.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/1000-A.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/1000-B.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/10000-A.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/10000-B.jpeg" alt="teste"   width="350"></img>
+    <img src="src/img/1000000-A.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/1000000-B.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/entrada-A.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/entrada-B.jpeg" alt="teste" width="350"></img>
 </p>
