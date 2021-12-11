@@ -23,18 +23,6 @@ Eng. Computação - 4º período - AEDS II
 
 ### Tabela com os dados utilizados para a geracao dos graficos
 
-|ARVORE|TAMANHO ENTRADA|TEMPO INSERCAO|
-|----|----|----|
-Simples     |1000   |0,001121
-AVL         |1000   |0,001838
-Red Black   |1000   |0,00118
-Simples     |10000  |0,012425
-AVL         |10000  |0,025016
-Red Black   |10000  |0,012552
-Simples     |1000000|2,116638
-AVL         |1000000|4,007273
-Red Black   |1000000|2,224072
-
 |ARVORE|TAMANHO PESQUISA|TEMPO PESQUISA|QUANTIDADE PESQUISA|TAMANHO ENTRADA|
 |----|----|----|----|----|
 Simples     |5000   |0,005353|65881|1000
@@ -70,3 +58,15 @@ Red Black   |10000  |0,020997|203079|1000000
 Simples     |100000 |0,216585|2683614|1000000
 AVL         |100000 |0,200959|2132835|1000000
 Red Black   |100000 |0,180501|2035803|1000000
+
+|ARVORE|TAMANHO ENTRADA|TEMPO INSERCAO|
+|----|----|----|
+Simples     |1000   |0,001121
+AVL         |1000   |0,001838
+Red Black   |1000   |0,00118
+Simples     |10000  |0,012425
+AVL         |10000  |0,025016
+Red Black   |10000  |0,012552
+Simples     |1000000|2,116638
+AVL         |1000000|4,007273
+Red Black   |1000000|2,224072
