@@ -22,9 +22,6 @@ int main() {
 
 	resetTree(&raizS, &raizAVL, &raizRB);
 
-	// corrigeFile1000000(&raizRB);
-	// return 0;}
-
 	do {
 		system("clear");
         op = menu();
@@ -38,7 +35,7 @@ int main() {
                 else {
                     resetTree(&raizS, &raizAVL, &raizRB);
 				    
-                    printf("inserindo dados ...\n");
+                    printf("inserindo %d dados ...\n", tam);
                     
                     readFileInput(&raizS, &raizAVL, &raizRB, tam, &t_inputS, &t_inputAVL, &t_inputRB);
 					tam_aux = tam;
