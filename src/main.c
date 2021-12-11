@@ -10,9 +10,6 @@ void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 int main() {
 	system("clear");   
 
-	// randomValue();
-	
-
 	int op, tam, tam_aux = 0;
 
 	TreeS *raizS;
@@ -26,8 +23,7 @@ int main() {
 	resetTree(&raizS, &raizAVL, &raizRB);
 
 	// corrigeFile1000000(&raizRB);
-
-	// return 0; 
+	// return 0;}
 
 	do {
 		system("clear");

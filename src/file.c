@@ -228,7 +228,7 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 
 /**
  * @brief Realiza a correcao do arquivo de 1000000 de entradas para arquivos repetidos
- * @param raizRB ponteiro da raiz red black
+ * @param raizRB ponteiro da arvore red black
  */
 // void corrigeFile1000000(TreeRB **raizRB) {
 // 	FILE *file;
@@ -243,30 +243,15 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 // 	int tam = 1000000;
 
 // 	sprintf(text, "%d", tam);
-// 	strcpy(linha, PATH_INPUT);
-// 	strcat(linha, strcat(text, ".txt"));
+// 	strcpy(linha, "src/files/ten_thousand.txt");
+// 	// strcat(linha, strcat(text, ".txt"));
 
 // 	file = fopen(linha, "r");
 
-// //====================
-// 	// FILE *fileNew;
-// 	// char array[100];
-// 	// char *result;
+// 	FILE *fileNew;
 
-// 	// double n = 0;
-//     // int cont = 0;
-
-// 	// fileNew = fopen("src/files/input10000002.txt", "w");
-// 	// double aux = 0;
-
-//     // for(int i=0; i < max; i++) {
-//         // n = get_random();
-// 		// sprintf(linha, "%.6lf", n);
-// 		// strcat(linha, "\n");
-// 		// fputs(linha, fileNew);
-//     // }
-// 	// fclose(fileNew);
-// //====================
+// 	fileNew = fopen("src/files/saida.txt", "w");
+// 	double aux = 0;
 
 // 	int contadorRP = 0;
 
@@ -284,9 +269,7 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 
 // 			if(result) {
 // 				r.key = atof(linha);
-// 				// item.val = r.key;
-// 				insertItemRB(raizRB, r, &contadorRP, &cont);
-// 				// insertItemRB(raizRB, r, &contadorRP, &cont, &aux);
+// 				insertItemRB(raizRB, r, &contadorRP, &cont, &aux);
 
 // 				sprintf(linha, "%.6lf", aux);
 // 				strcat(linha, "\n");
@@ -298,5 +281,6 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 // 	printf("%d arquivos repetidos\n", contadorRP);
 	
 // 	fclose(file);
+// 	fclose(fileNew);
 	
 // }
