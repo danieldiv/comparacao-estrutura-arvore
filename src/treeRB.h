@@ -29,6 +29,7 @@ void Left_Rotate(TreeRB **root, TreeRB *x);
 void Right_Rotate(TreeRB **root, TreeRB *y);
 void fix_insert(TreeRB **root, TreeRB *aux);
 void insertItemRB(TreeRB **root, Record r, int *contadorRP, int *cont);
+// void insertItemRBCorrecao(TreeRB **root, Record r, int *contadorRP, int *cont);
 void rb_insert(TreeRB **root, TreeRB *x,TreeRB *y,TreeRB *temp);
 void RB_transplant(TreeRB *aux,TreeRB *auxchild);
 

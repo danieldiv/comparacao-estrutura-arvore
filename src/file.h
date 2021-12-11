@@ -22,7 +22,9 @@ void writeFile(char *nome, int max);
 void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
 void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB);
 void randomValue();
-void corrigeFile1000000(TreeRB **raizRB);
+
+void readFileInput1Bilhao(TreeRB **raizRB, double *tempo);
+void corrigeValoresRepetidos(TreeRB **raizRB);
 
 double get_random();
 

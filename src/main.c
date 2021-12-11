@@ -8,7 +8,7 @@ void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int *tam_a
 void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 
 int main() {
-	system("clear");   
+	system("clear");
 
 	int op, tam, tam_aux = 0;
 
@@ -18,7 +18,7 @@ int main() {
 
 	double t_inputS, t_inputAVL, t_inputRB;
 	double t_searchS, t_searchAVL, t_searchRB;
-	double t_total;
+	double t_total, t_tempo_1Bilhao;
 
 	resetTree(&raizS, &raizAVL, &raizRB);
 
@@ -31,8 +31,8 @@ int main() {
                 tam = menuInput();
 
                 if(tam == 0)
-                    printf("Nenhuma entrada selecionada!\n");    
-                else {
+                    printf("Nenhuma entrada selecionada!\n");
+				else {
                     resetTree(&raizS, &raizAVL, &raizRB);
 				    
                     printf("inserindo %d dados ...\n", tam);
@@ -47,6 +47,11 @@ int main() {
 					printf("Tempo arvore AVL: %lf\n", t_inputAVL);
 					printf("Tempo arvore Red Black: %lf\n", t_inputRB);
                 }
+				// else if(tam == -1) {
+				// 	printf("inserindo 1 bilhao de dados ...\n");
+				// 	readFileInput1Bilhao(&raizRB, &t_tempo_1Bilhao);
+				// 	printf("Tempo 1 bilhao: %lf\n", t_tempo_1Bilhao);
+				// } 
 			break;
 			case 2:
                 printf("searching...\n\n");
@@ -139,6 +144,7 @@ int menuInput() {
 	printf("1 - 1000\n");
 	printf("2 - 10000\n");
 	printf("3 - 1000000\n");
+	// printf("4 - 1000000000\n");
 	printf("0 - Sair\n\n");
 
 	printf("Escolha uma entrada: ");
@@ -148,6 +154,7 @@ int menuInput() {
         case 1: return 1000;
         case 2: return 10000;
         case 3: return 1000000;
+		// case 4: return -1;
         default: return 0;
     }
 }

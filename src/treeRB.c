@@ -369,3 +369,33 @@ int check(TreeRB *aux, double z, int chk){
         chk = 1;
     return chk;
 }
+
+// /**
+//  * @brief Possui a mesma funcao da insercao, com a diferenca de que testa se
+//  * existe valores repetidos e insere novos valores ate nao ser mais repetido
+//  * 
+//  */
+// void insertItemRBCorrecao(TreeRB **root, Record r, int *contadorRP, int *cont) {
+//     int chk = 0;
+
+//     if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
+//         temp->P     = nill;
+//         temp->LC    = nill;
+//         temp->RC    = nill;
+//         temp->reg   = r;
+//         temp->color = black;
+//         chk         = check(*root,r.key,0);
+
+//         if(chk == 0){
+//             rb_insert(root, *root, nill, temp);
+//             (*cont)++;
+//         }
+//         else{
+//             (*contadorRP)++;
+//             free(temp);
+
+//             r.key = r.key + 0.0001;
+//             insertItemRBCorrecao(root, r, contadorRP, cont);
+//         }
+//     }
+// }

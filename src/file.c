@@ -15,6 +15,7 @@ void randomValue() {
 	char nome[100];
 
 	srand(time(NULL));
+	// printf("Inicializando arquivo de entrada 1000000000...\n");
 	printf("Inicializando arquivos de entrada (1000, 10000, 1000000) e pesquisa (5000, 10000, 100000)...\n");
 
 	strcpy(nome, "src/files/input1000.txt");
@@ -32,6 +33,9 @@ void randomValue() {
 	writeFile(nome, 10000);
 	strcpy(nome, "src/files/search100000.txt");
 	writeFile(nome, 100000);
+
+	// strcpy(nome, "src/files/input 1 000 000 000.txt");
+	// writeFile(nome, 1000000000);
 }
 
 /**
@@ -65,6 +69,9 @@ void writeFile(char *nome, int max) {
  * @param raizAVL ponteiro da arvore AVL
  * @param raizRB ponteiro da arvore red black
  * @param tamanho valor do arquivo de entrada a ser aberto
+ * @param tS ponteiro para o tempo da arvore simples
+ * @param tAVL ponteiro para o tempo da arvore AVL
+ * @param tRB ponteiro para o tempo da arvore rubro negra
  */
 void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB) {
 	FILE *fileS, *fileAVL, *fileRB;
@@ -145,7 +152,10 @@ void readFileInput(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, d
  * @param raizS ponteiro da arvore simples
  * @param raizAVL ponteiro da arvore AVL
  * @param raizRB ponteiro da arvore red black
- * @param tamanho valor do arquivo de entrada a ser aberto
+ * @param tam valor do arquivo de entrada a ser aberto
+ * @param tS ponteiro para o tempo da arvore simples
+ * @param tAVL ponteiro para o tempo da arvore AVL
+ * @param tRB ponteiro para o tempo da arvore rubro negra
  */
 void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, double *tS, double *tAVL, double *tRB) {
 	FILE *fileS, *fileAVL, *fileRB;
@@ -226,12 +236,15 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 	printf("(%.0lf) pesquisas realizadas arvore RB\n", quantRB);
 }
 
-/**
- * @brief Realiza a correcao do arquivo de 1000000 de entradas para arquivos repetidos
- * @param raizRB ponteiro da arvore red black
- */
-// void corrigeFile1000000(TreeRB **raizRB) {
-// 	FILE *file;
+// /**
+//  * @brief Realiza a leitura de um arquivo de 1000000000 de entradas
+//  * este metodo nao deve ser utilizado, consome muito recurso
+//  * 
+//  * @param raizRB ponteiro da arvore red black
+//  * @param tempo ponteiro para o tempo de insercao
+//  */
+// void readFileInput1Bilhao(TreeRB **raizRB, double *tempo) {
+// 	FILE *file, *newFile;
 
 // 	clock_t time;
 
@@ -239,29 +252,20 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 // 	char text[20];
 // 	char *result;
 
-// 	int cont = 0;
-// 	int tam = 1000000;
+// 	int cont = 0, contadorRP = 0;
 
-// 	sprintf(text, "%d", tam);
-// 	strcpy(linha, "src/files/ten_thousand.txt");
-// 	// strcat(linha, strcat(text, ".txt"));
+// 	sprintf(text, "%d", 1000000000);
+// 	strcpy(linha, PATH_INPUT);
+// 	strcat(linha, strcat(text, ".txt"));
 
 // 	file = fopen(linha, "r");
-
-// 	FILE *fileNew;
-
-// 	fileNew = fopen("src/files/saida.txt", "w");
-// 	double aux = 0;
-
-// 	int contadorRP = 0;
+// 	newFile = fopen("src/files/saida.txt", "w");
 
 // 	if(file == NULL) {
 // 		printf("Erro ao abrir arquivo de entrada\n");
 // 		return;
 // 	} else {
-// 		printf("inserindo %d arquivos...\n", tam);
 // 		Record r;
-		
 // 		time = clock();
 
 // 		while(!feof(file)) {
@@ -269,18 +273,17 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 
 // 			if(result) {
 // 				r.key = atof(linha);
-// 				insertItemRB(raizRB, r, &contadorRP, &cont, &aux);
+// 				insertItemRBCorrecao(raizRB, r, &contadorRP, &cont);
 
-// 				sprintf(linha, "%.6lf", aux);
+// 				sprintf(linha, "%.6lf", r.key);
 // 				strcat(linha, "\n");
-// 				fputs(linha, fileNew);
+// 				fputs(linha, newFile);
 // 			}
 // 		}
+// 		*tempo = ((clock() - time) / (double)CLOCKS_PER_SEC);
 // 	}
-// 	printf("salvou %d arquivos\n", cont);
-// 	printf("%d arquivos repetidos\n", contadorRP);
+// 	printf("\n%d valores inseridos no total\n", cont);
+// 	printf("\n%d valores repetidos\n", contadorRP);
 	
 // 	fclose(file);
-// 	fclose(fileNew);
-	
 // }
