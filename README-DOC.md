@@ -12,10 +12,10 @@ Eng. Computação - 4º período - AEDS II
 
 <p align="center">
     <img src="src/img/1.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/2.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/3.jpeg" alt="teste" width="350"></img>
     <img src="src/img/4.jpeg" alt="teste" width="350"></img>
-    <img src="src/img/5.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/2.jpeg" alt="teste" width="350"></img>
+    <img src="src/img/5.jpeg" alt="teste"   width="350"></img>
+    <img src="src/img/3.jpeg" alt="teste" width="350"></img>
     <img src="src/img/6.jpeg" alt="teste" width="350"></img>
     <img src="src/img/7.jpeg" alt="teste" width="350"></img>
     <img src="src/img/8.jpeg" alt="teste" width="350"></img>
