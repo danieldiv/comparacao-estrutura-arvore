@@ -20,3 +20,17 @@ Eng. Computação - 4º período - AEDS II
     <img src="src/img/entrada-A.jpeg" alt="teste" width="350"></img>
     <img src="src/img/entrada-B.jpeg" alt="teste" width="350"></img>
 </p>
+
+### Tabela com os dados utilizados para a geracao dos graficos
+
+|Arvore|Tamanho entrada|Tempo insercao|
+|----|----|----|
+Simples|1000|0,001121
+AVL|1000|0,001838
+Red Black|1000|0,00118
+Simples|10000|0,012425
+AVL|10000|0,025016
+Red Black|10000|0,012552
+Simples|1000000|2,116638
+AVL|1000000|4,007273
+Red Black|1000000|2,224072
