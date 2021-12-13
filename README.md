@@ -9,11 +9,17 @@ Comparacao das estruturas tipo arvore
 
 ## Menu
 
-![Scrennshot](src/img/menu-opcao-principal.png)
+![Scrennshot](src/img/a.png)
+
+![Scrennshot](src/img/b.png)
+
+![Scrennshot](src/img/c.png)
+
+<!-- ![Scrennshot](src/img/menu-opcao-principal.png)
 
 ![Scrennshot](src/img/menu-opcao-entrada.png)
 
-![Scrennshot](src/img/menu-opcao-pesquisa.png)
+![Scrennshot](src/img/menu-opcao-pesquisa.png) -->
 
 - opcao 1
 
