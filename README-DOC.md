@@ -8,7 +8,7 @@ Eng. Computação - 4º período - AEDS II
 
 ## Dados utilizados para analize
 
-> Os tempos de pesquisa e insercao podem variavar em cada maquina
+> Os tempos de insersao e pesquisa podem variavar em cada maquina
 
 > A quantidade de pesquisa sera a mesma em qualquer maquina
 
