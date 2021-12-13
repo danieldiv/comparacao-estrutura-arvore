@@ -11,19 +11,19 @@ Comparacao das estruturas tipo arvore
 
 ![Scrennshot](src/img/menu-opcao-principal.png)
 
+- Ao inicializar o programa, tera quatro opcoes:
+    - 0 -> Finaliza o programa
+    - 1 -> Mostra as opcoes para o tamanho da entrada
+    - 2 -> Mostra as opcoes para o tamanho da pesquisa
+    - 3 -> Inicializa uma arvore teste com 9 valores: {11,2,14,1,7,15,5,8,4}
+
 ![Scrennshot](src/img/menu-opcao-entrada.png)
+
+- Ao selecionar uma determinada entrada, sera inserido os valores nas 3 arvores disponiveis. Caso a opcao seja 0 ou diferente das 3 possiveis, nao sera inserido valores na arvore e mantera o que ja tinha salvo na arvore caso exista.
 
 ![Scrennshot](src/img/menu-opcao-pesquisa.png)
 
-- opcao 1
-
-- opcao 2
-
-- opcao 3
-    - Insere os valores {11,2,14,1,7,15,5,8,4} nas tres arvores para teste, sendo possivel analizar as regras de cada uma.
-
-- opcao 0
-    - finaliza a aplicacao
+- Estando com as arvores prenchidas pelas entradas disponieis ou pelo arquivo teste, sera possivel realizar tres pesquisas, quer tera como resultado a quantidade de pesquisa e tempo utilizado por cada arvore.
 
 ## Informacoes
 
