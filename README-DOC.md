@@ -4,6 +4,8 @@ Daniel Alves Sanches
 
 Eng. Computação - 4º período - AEDS II
 
+- A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem proximo da arvore simples e AVL, nao compensando utilizar para entradas pequenas
+
 ## Dados utilizados para analize
 
 > Os tempos de pesquisa e insercao podem variavar em cada maquina

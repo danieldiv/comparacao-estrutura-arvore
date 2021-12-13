@@ -172,7 +172,7 @@ void readFileSearch(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int tam, 
 	double quantS, quantAVL, quantRB;
 
 	cont = quantS = quantAVL = quantRB = 0;
-
+	
 	sprintf(text, "%d", tam);
 	strcpy(linha, PATH_SEARCH);
 	strcat(linha, strcat(text, ".txt"));
