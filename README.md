@@ -3,7 +3,7 @@ Comparacao das estruturas tipo arvore
 
 ## Valores aleatorios
 
-- Para gerar valores aleatorios utilize o metodo randomValue do arquivo file.c, sera gerado valores aleatorios para insercao das arvores. A quantidade de valore varia entre, 1000, 100000 e 1000000.
+- Para gerar valores aleatorios utilize o metodo randomValue do arquivo file.c, sera gerado valores aleatorios para insercao das arvores. A quantidade de valores varia entre, 1000, 100000 e 1000000.
 
 - Para a pesquisa sao gerados valores aleatorios entre 5000, 10000 e 100000 valores. Nos arquivos atuais de pesquisa foram modificados alguns destes valores para permitir a existencia de valores repetidos, validos e nao validos.
 
@@ -19,7 +19,7 @@ Comparacao das estruturas tipo arvore
 
 ![Scrennshot](src/img/menu-opcao-entrada.png)
 
-- Ao selecionar uma determinada entrada, sera inserido os valores nas 3 arvores disponiveis. Caso a opcao seja 0 ou diferente das 3 possiveis, nao sera inserido valores na arvore e mantera o que ja tinha salvo na arvore caso exista.
+- Ao selecionar uma determinada entrada, sera inserido os valores nas 3 arvores disponiveis. Caso a opcao seja 0 ou diferente das 3 possiveis, nao sera inserido valores na arvore e mantera o que ja tinha salvo caso exista.
 
 ![Scrennshot](src/img/menu-opcao-pesquisa.png)
 

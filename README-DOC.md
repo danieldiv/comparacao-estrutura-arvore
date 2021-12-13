@@ -72,3 +72,23 @@ Red Black   |10000  |0,012552
 Simples     |1000000|2,116638
 AVL         |1000000|4,007273
 Red Black   |1000000|2,224072
+
+### Referencias
+
+- https://stackoverflow.com/questions/35117014/generating-a-random-uniformly-distributed-real-number-in-c
+
+- http://linguagemc.com.br/arquivos-em-c-categoria-usando-arquivos/
+
+- https://stackoverflow.com/questions/7462349/convert-double-value-to-a-char-array-in-c/18146858
+
+- https://www.ic.unicamp.br/~francesquini/mc202/files/aula16-18.pdf
+
+- https://stackoverflow.com/questions/10075294/converting-string-to-a-double-variable-in-c
+
+- https://stackoverflow.com/questions/10797377/in-objective-c-what-utility-uses-brief-tag-in-comments
+
+- https://developer.lsst.io/cpp/api-docs.html
+
+- https://www.delftstack.com/pt/howto/c/how-to-convert-an-integer-to-a-string-in-c/
+
+- https://qastack.com.br/programming/24383700/resize-image-in-the-wiki-of-github-using-markdown
