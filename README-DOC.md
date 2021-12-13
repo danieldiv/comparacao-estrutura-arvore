@@ -91,6 +91,6 @@ Red Black   |1000000|2,224072
 
 - https://www.delftstack.com/pt/howto/c/how-to-convert-an-integer-to-a-string-in-c/
 
-https://github.com/GeorgePapageorgakis/red-black-tree
+- https://github.com/GeorgePapageorgakis/red-black-tree
 
 - https://qastack.com.br/programming/24383700/resize-image-in-the-wiki-of-github-using-markdown
