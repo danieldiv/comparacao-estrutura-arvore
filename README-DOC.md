@@ -4,35 +4,35 @@ Daniel Alves Sanches
 
 Eng. Computação - 4º período - AEDS II
 
-- A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem proximo da arvore simples e AVL, nao compensando utilizar para entradas pequenas
+- A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem próximo da arvore simples e AVL, não compensando utilizar para entradas pequenas
 
-## Questoes
+## Questões
 
 - 3.1) - Qual das estruturas é mais rápida para pesquisa e porquê?
 
-    - Analizando a tabela e os graficos gerados com os tempos de pesquisa, a estrutura mais rapida e a arvore rubro negra, devido a estrutura estar melhor balanceada em relacao as demais, que tambem e possivel observar pela quantidade de pequisa realizadas da estrutura rubro negra, sendo a menor em todos os casos.
+    - Analisando a tabela e os gráficos gerados com os tempos de pesquisa, a estrutura mais rápida e a arvore rubro negra, devido a estrutura estar melhor balanceada em relação as demais, que também e possível observar pela quantidade de pesquisa realizadas da estrutura rubro negra, sendo a menor em todos os casos.
 
 - 3.2) - Há diferença de tempo das inserções, o que afeta cada estrutura em termos de mecanismo de manipulação / balanceamento?
 
-    - O tempo de insercao da estrutura simples e rubro negra sao praticamente identicos, a estrutura simples insere rapido pois nao existe nenhuma verificacao de balanceamento, apenas a estrutura de arvore simples.
+    - O tempo de inserção da estrutura simples e rubro negra são praticamente idênticos, a estrutura simples insere rápido pois não existe nenhuma verificação de balanceamento, apenas a estrutura de arvore simples.
 
-    - Na estrutura rubro negra possui o melhor tempo, devido o seu balanceamento, que apesar de ser mais complexa a sua programacao, o balanceamento de apenas uma rotacao compensa o tempo na hora de inserir, pois na estrutura ordenada chega nas folhas mais rapidamente.
+    - Na estrutura rubro negra possui o melhor tempo, devido ao seu balanceamento, que apesar de ser mais complexa a sua programação, o balanceamento de apenas uma rotação compensa o tempo na hora de inserir, pois na estrutura ordenada chega nas folhas mais rapidamente.
 
-    - A estrutura AVL possui o pior tempo em relacao a estrutura simples e rubro negra, isso ocorre devido o seu balanceamento, que apesar de ajudar na pesquisa, consome um tempo extra para as rotacoes, sendo uma rotacao simples ou uma rotacao dupla, elevando muito o seu tempo de insercao
+    - A estrutura AVL possui o pior tempo em relação a estrutura simples e rubro negra, isso ocorre devido ao seu balanceamento, que apesar de ajudar na pesquisa, consome um tempo extra para as rotações, sendo uma rotação simples ou uma rotação dupla, elevando muito o seu tempo de inserção
 
 - 3.3) - Considerando as três bases de entrada, para quais você indica cada uma das estruturas e porquê?
 
-    - Para utilizacao de uma pequena entrada de dados, a arvore simples consegue atender bem a sua insercao e pesquisa, mesmo que para uma pesquisa muito grande de dados o tempo e maior, ainda compensa pela simplicidade de implementacao.
+    - Para utilização de uma pequena entrada de dados, a arvore simples consegue atender bem a sua inserção e pesquisa, mesmo que para uma pesquisa muito grande de dados o tempo e maior, ainda compensa pela simplicidade de implementação.
 
-    - Quando a quantidade de dados comeca a crescer, para melhorar a pesquisa, estruturas balanceadas sao mais recomendadas, em todas as formas de pesquisa pela quantidade de entrada, a rubra sempre tera o tempo inferior de pesquisa, porem ela e mais elaborada de se implementar, o que traz a arvore AVL como uma solucao temporaria para as pesquisas.
+    - Quando a quantidade de dados começa a crescer, para melhorar a pesquisa, estruturas balanceadas são mais recomendadas, em todas as formas de pesquisa pela quantidade de entrada, a rubra sempre terá o tempo inferior de pesquisa, porem ela e mais elaborada de se implementar, o que traz a arvore AVL como uma solução temporária para as pesquisas.
     
-    - Mas caso a quantidade de dados seja muito grande, o recomendado e a utilizacao da estrutura rubro negra, e tambem, estando com a estrutura rubro negra implementada, a utilizacao dela em todos os tipos de entradas e pesquisas se torna a melhor opcao.
+    - Mas caso a quantidade de dados seja muito grande, o recomendado e a utilização da estrutura rubro negra, e também, estando com a estrutura rubro negra implementada, a utilização dela em todos os tipos de entradas e pesquisas se torna a melhor opção.
 
-## Dados utilizados para analize
+## Dados utilizados para análise
 
-> Os tempos de insersao e pesquisa podem variavar em cada maquina
+> Os tempos de inserção e pesquisa podem variar em cada maquina
 
-> A quantidade de pesquisa sera a mesma em qualquer maquina
+> A quantidade de pesquisa será a mesma em qualquer maquina
 
 <p align="center">
     <img src="src/img/entrada-A.jpeg" alt="teste" width="350"></img>
@@ -45,7 +45,7 @@ Eng. Computação - 4º período - AEDS II
     <img src="src/img/1000000-B.jpeg" alt="teste" width="350"></img>
 </p>
 
-### Tabela com os dados utilizados para a geracao dos graficos
+### Tabela com os dados utilizados para a geração dos gráficos
 
 |ARVORE|TAMANHO PESQUISA|TEMPO PESQUISA (s)|QUANTIDADE PESQUISA|TAMANHO ENTRADA|
 |----|----|----|----|----|
