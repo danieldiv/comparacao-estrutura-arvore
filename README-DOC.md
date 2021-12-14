@@ -6,6 +6,16 @@ Eng. Computação - 4º período - AEDS II
 
 - A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem proximo da arvore simples e AVL, nao compensando utilizar para entradas pequenas
 
+## Questoes
+
+- 3.1) - Qual das estruturas é mais rápida para pesquisa e porquê?
+
+    - Analizando a tabela e os graficos gerados com os tempos de pesquisa, a estrutura mais rapida e a arvore rubro negra, devido a estrutura estar melhor balanceada em relacao as demais, que tambem e possivel observar pela quantidade de pequisa realaizadas da estrutura rubro negra, sendo a menor em todos os casos.
+
+- 3.2) - Há diferença de tempo das inserções, o que afeta cada estrutura em termos de mecanismo de manipulação / balanceamento?
+
+- 3.3) - Considerando as três bases de entrada, para quais você indica cada uma das estruturas e porquê?
+
 ## Dados utilizados para analize
 
 > Os tempos de insersao e pesquisa podem variavar em cada maquina
