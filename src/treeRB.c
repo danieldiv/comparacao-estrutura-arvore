@@ -57,7 +57,6 @@ void Left_Rotate(TreeRB **root, TreeRB *x){
     x->P  = y;
 }
 
-//right rotate y and y.LC
 void Right_Rotate(TreeRB **root, TreeRB *y){
     TreeRB *x;
     x = y->LC;
@@ -75,7 +74,6 @@ void Right_Rotate(TreeRB **root, TreeRB *y){
     y->P  = x;
 }
 
-// each iteration 2 possibilities: either move up aux or perform rotation and terminate
 void fix_insert(TreeRB **root, TreeRB *aux){
     TreeRB *y;
     while (aux->P->color == red){	
@@ -155,21 +153,6 @@ void rb_insert(TreeRB **root, TreeRB *x, TreeRB *y, TreeRB *temp){
     fix_insert(root, temp);               //fix tree in case or RB property violation
 }
 
-
-///////////////////////////////////////////////////////////////////////////////
-//replace the subtree rooted at node aux with the subtree rooted at aux-LC or aux->RC
-void RB_transplant(TreeRB *aux, TreeRB *auxchild){
-    // if (aux->P == nill)             //if aux=root child becomes root
-    //     root = auxchild;
-    // else if (aux == aux->P->LC)     //if child is a LC
-    //     aux->P->LC = auxchild;      //connect grandparent's->LC with child
-    // else 
-    // 	aux->P->RC = auxchild;     //if child is RC connect grandparent's->RC with child
-    // auxchild->P = aux->P;	   //connect child to point to parent
-}
-
-
-//-----------------------------------------------------------------------------
 //find the successor of a node
 TreeRB *tree_successor(TreeRB *aux_succ){
     while (aux_succ->LC != nill)
@@ -177,8 +160,103 @@ TreeRB *tree_successor(TreeRB *aux_succ){
     return aux_succ;
 }
 
+void searchRB(TreeRB *aux, Record z, double *quant){
+    while (aux != nill && z.key != aux->reg.key){
+        (*quant)++;
+        if (z.key < aux->reg.key)
+            aux = aux->LC;
+        else 
+            aux = aux->RC;
+    }
+}
 
-///////////////////////////////////////////////////////////////////////////////
+//search for node to be deleted, begin at root and trace a simple path downward the tree
+void search_delete(TreeRB *aux, Record z){
+    while (aux != nill && z.key != aux->reg.key){
+        if (z.key < aux->reg.key)
+            aux = aux->LC;
+        else 
+            aux = aux->RC;
+    }
+    if (aux->reg.key == z.key) {
+        printf("Node (%lf) found\n", z.key);
+        //     RB_delete(aux, aux, aux);
+    }
+    else 
+        printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
+}
+
+void preordemRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        printf("%lf ", aux->reg.key);
+        preordemRB(aux->LC);
+        preordemRB(aux->RC);
+    }
+}
+
+void centralRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        centralRB(aux->LC);
+        printf("%lf ", aux->reg.key);
+        centralRB(aux->RC);
+    }
+}
+
+void posordemRB(TreeRB *aux) {
+    if(aux != NULL && aux->reg.key != 0) {
+        posordemRB(aux->LC);
+        posordemRB(aux->RC);
+        printf("%lf ", aux->reg.key);
+    }
+}
+
+//print as a tree
+// void tree_print(TreeRB *aux, TreeRB *nill){
+// }
+
+//check in case of overwrite
+int check(TreeRB *aux, double z, int chk){
+    while (aux != nill && z != aux->reg.key){
+        if (z < aux->reg.key)
+            aux = aux->LC;
+        else 
+            aux = aux->RC;
+    }
+    if (aux->reg.key == z)
+        chk = 1;
+    return chk;
+}
+
+// /**
+//  * @brief Possui a mesma funcao da insercao, com a diferenca de que testa se
+//  * existe valores repetidos e insere novos valores ate nao ser mais repetido
+//  * 
+//  */
+// void insertItemRBCorrecao(TreeRB **root, Record r, int *contadorRP, int *cont) {
+//     int chk = 0;
+
+//     if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
+//         temp->P     = nill;
+//         temp->LC    = nill;
+//         temp->RC    = nill;
+//         temp->reg   = r;
+//         temp->color = black;
+//         chk         = check(*root,r.key,0);
+
+//         if(chk == 0){
+//             rb_insert(root, *root, nill, temp);
+//             (*cont)++;
+//         }
+//         else{
+//             (*contadorRP)++;
+//             free(temp);
+
+//             r.key = r.key + 0.0001;
+//             insertItemRBCorrecao(root, r, contadorRP, cont);
+//         }
+//     }
+// }
+
 //fix the balance after a node deletion
 void RB_delete_fix(TreeRB *x, TreeRB *w){
     // while (x != root && x->color == black) {
@@ -296,106 +374,13 @@ void RB_delete(TreeRB* z, TreeRB* y, TreeRB *x){
     // free(z);
 }
 
-void searchRB(TreeRB *aux, Record z, double *quant){
-    while (aux != nill && z.key != aux->reg.key){
-        (*quant)++;
-        if (z.key < aux->reg.key)
-            aux = aux->LC;
-        else 
-            aux = aux->RC;
-    }
-
-    // if (aux->reg.key == z.key) {
-    //     return;
-    //     printf("Node (%lf) found\n", z.key);
-    // }
+//replace the subtree rooted at node aux with the subtree rooted at aux-LC or aux->RC
+void RB_transplant(TreeRB *aux, TreeRB *auxchild){
+    // if (aux->P == nill)             //if aux=root child becomes root
+    //     root = auxchild;
+    // else if (aux == aux->P->LC)     //if child is a LC
+    //     aux->P->LC = auxchild;      //connect grandparent's->LC with child
     // else 
-        // printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
+    // 	aux->P->RC = auxchild;     //if child is RC connect grandparent's->RC with child
+    // auxchild->P = aux->P;	   //connect child to point to parent
 }
-
-//search for node to be deleted, begin at root and trace a simple path downward the tree
-void search_delete(TreeRB *aux, Record z){
-    while (aux != nill && z.key != aux->reg.key){
-        if (z.key < aux->reg.key)
-            aux = aux->LC;
-        else 
-            aux = aux->RC;
-    }
-    if (aux->reg.key == z.key) {
-        printf("Node (%lf) found\n", z.key);
-        //     RB_delete(aux, aux, aux);
-    }
-    else 
-        printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
-}
-
-void preordemRB(TreeRB *aux) {
-    if(aux != NULL && aux->reg.key != 0) {
-        printf("%lf ", aux->reg.key);
-        preordemRB(aux->LC);
-        preordemRB(aux->RC);
-    }
-}
-
-void centralRB(TreeRB *aux) {
-    if(aux != NULL && aux->reg.key != 0) {
-        centralRB(aux->LC);
-        printf("%lf ", aux->reg.key);
-        centralRB(aux->RC);
-    }
-}
-
-void posordemRB(TreeRB *aux) {
-    if(aux != NULL && aux->reg.key != 0) {
-        posordemRB(aux->LC);
-        posordemRB(aux->RC);
-        printf("%lf ", aux->reg.key);
-    }
-}
-
-//print as a tree
-// void tree_print(TreeRB *aux, TreeRB *nill){
-// }
-
-//check in case of overwrite
-int check(TreeRB *aux, double z, int chk){
-    while (aux != nill && z != aux->reg.key){
-        if (z < aux->reg.key)
-            aux = aux->LC;
-        else 
-            aux = aux->RC;
-    }
-    if (aux->reg.key == z)
-        chk = 1;
-    return chk;
-}
-
-// /**
-//  * @brief Possui a mesma funcao da insercao, com a diferenca de que testa se
-//  * existe valores repetidos e insere novos valores ate nao ser mais repetido
-//  * 
-//  */
-// void insertItemRBCorrecao(TreeRB **root, Record r, int *contadorRP, int *cont) {
-//     int chk = 0;
-
-//     if ((temp = (TreeRB *) malloc(sizeof(TreeRB))) != NULL){
-//         temp->P     = nill;
-//         temp->LC    = nill;
-//         temp->RC    = nill;
-//         temp->reg   = r;
-//         temp->color = black;
-//         chk         = check(*root,r.key,0);
-
-//         if(chk == 0){
-//             rb_insert(root, *root, nill, temp);
-//             (*cont)++;
-//         }
-//         else{
-//             (*contadorRP)++;
-//             free(temp);
-
-//             r.key = r.key + 0.0001;
-//             insertItemRBCorrecao(root, r, contadorRP, cont);
-//         }
-//     }
-// }
