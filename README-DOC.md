@@ -4,8 +4,6 @@ Daniel Alves Sanches
 
 Eng. Computação - 4º período - AEDS II
 
-- A arvore Red Black e bem mais complexa para implementar, e para uma entrada de dados pequena ele tem um custo de pesquisa bem próximo da arvore simples e AVL, não compensando utilizar para entradas pequenas
-
 ## Questões
 
 - 3.1) - Qual das estruturas é mais rápida para pesquisa e porquê?
