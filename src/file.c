@@ -18,20 +18,20 @@ void randomValue() {
 	// printf("Inicializando arquivo de entrada 1000000000...\n");
 	printf("Inicializando arquivos de entrada (1000, 10000, 1000000) e pesquisa (5000, 10000, 100000)...\n");
 
-	// strcpy(nome, "src/files/input1000.txt");
-	// writeFile(nome, 1000);
-	// strcpy(nome, "src/files/input10000.txt");
-	// writeFile(nome, 10000);
-	// strcpy(nome, "src/files/input1000000.txt");
-	// writeFile(nome, 1000000);
-
-	// srand(time(NULL));
-
-    strcpy(nome, "src/files/pesquisa5000.txt");
-	writeFile(nome, 5000);
-	strcpy(nome, "src/files/pesquisah10000.txt");
+	strcpy(nome, "src/files/input1000.txt");
+	writeFile(nome, 1000);
+	strcpy(nome, "src/files/input10000.txt");
 	writeFile(nome, 10000);
-	strcpy(nome, "src/files/pesquisa100000.txt");
+	strcpy(nome, "src/files/input1000000.txt");
+	writeFile(nome, 1000000);
+
+	srand(time(NULL));
+
+    strcpy(nome, "src/files/search5000.txt");
+	writeFile(nome, 5000);
+	strcpy(nome, "src/files/search10000.txt");
+	writeFile(nome, 10000);
+	strcpy(nome, "src/files/search100000.txt");
 	writeFile(nome, 100000);
 
 	// strcpy(nome, "src/files/input 1 000 000 000.txt");
