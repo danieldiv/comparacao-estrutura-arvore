@@ -15,7 +15,7 @@ Comparação das estruturas tipo arvore
     - 0 -> Finaliza o programa
     - 1 -> Mostra as opções para o tamanho da entrada
     - 2 -> Mostra as opções para o tamanho da pesquisa
-    - 3 -> Inicializa uma arvore teste com 9 valores: {11,2,14,1,7,15,5,8,4}
+    - 3 -> Inicializa uma arvore teste com 9 valores: {11,2,14,1,7,15,5,8,4} e exclui o elemento 8 da arvore RB
 
 ![Scrennshot](src/img/menu-opcao-entrada.png)
 
