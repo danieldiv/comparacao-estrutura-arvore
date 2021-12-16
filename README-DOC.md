@@ -8,7 +8,7 @@ Eng. Computação - 4º período - AEDS II
 
 - 3.1) - Qual das estruturas é mais rápida para pesquisa e porquê?
 
-    - Analisando a tabela e os gráficos gerados com os tempos de pesquisa, a estrutura mais rápida e a arvore rubro negra, devido a estrutura estar melhor balanceada em relação as demais, que também e possível observar pela quantidade de pesquisa realizadas da estrutura rubro negra, sendo a menor em todos os casos.
+    - Analisando a tabela e os gráficos gerados com os tempos de pesquisa, a estrutura mais rápida é a arvore rubro negra, devido a estrutura estar melhor balanceada em relação as demais, que também é possível observar pela quantidade de pesquisa realizadas da estrutura rubro negra, sendo a menor em todos os casos.
 
 - 3.2) - Há diferença de tempo das inserções, o que afeta cada estrutura em termos de mecanismo de manipulação / balanceamento?
 
@@ -20,11 +20,11 @@ Eng. Computação - 4º período - AEDS II
 
 - 3.3) - Considerando as três bases de entrada, para quais você indica cada uma das estruturas e porquê?
 
-    - Para utilização de uma pequena entrada de dados, a arvore simples consegue atender bem a sua inserção e pesquisa, mesmo que para uma pesquisa muito grande de dados o tempo e maior, ainda compensa pela simplicidade de implementação.
+    - Para utilização de uma pequena entrada de dados, a arvore simples consegue atender bem a sua inserção e pesquisa, mesmo que para uma pesquisa muito grande de dados o tempo é maior, ainda compensa pela simplicidade de implementação.
 
-    - Quando a quantidade de dados começa a crescer, para melhorar a pesquisa, estruturas balanceadas são mais recomendadas, em todas as formas de pesquisa pela quantidade de entrada, a rubra sempre terá o tempo inferior de pesquisa, porem ela e mais elaborada de se implementar, o que traz a arvore AVL como uma solução temporária para as pesquisas.
+    - Quando a quantidade de dados começa a crescer, para melhorar a pesquisa, estruturas balanceadas são mais recomendadas, em todas as formas de pesquisa pela quantidade de entrada, a rubra sempre terá o tempo inferior de pesquisa, porem ela é mais elaborada de se implementar, o que traz a arvore AVL como uma solução temporária para as pesquisas.
     
-    - Mas caso a quantidade de dados seja muito grande, o recomendado e a utilização da estrutura rubro negra, e também, estando com a estrutura rubro negra implementada, a utilização dela em todos os tipos de entradas e pesquisas se torna a melhor opção.
+    - Mas caso a quantidade de dados seja muito grande, o recomendado é a utilização da estrutura rubro negra, e também, estando com a estrutura rubro negra implementada, a utilização dela em todos os tipos de entradas e pesquisas se torna a melhor opção.
 
 ## Dados utilizados para análise
 
