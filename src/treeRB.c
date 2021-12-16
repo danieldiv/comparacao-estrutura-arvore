@@ -170,8 +170,14 @@ void searchRB(TreeRB *aux, Record z, double *quant){
     }
 }
 
-//search for node to be deleted, begin at root and trace a simple path downward the tree
-void search_delete(TreeRB *aux, Record z){
+/**
+ * @brief Exclui um elemento da arvore 
+ * 
+ * @param root ponteiro da estrutura RB para exclusao
+ * @param aux ponteiro da estrutura RB utilizado como pesquisa do elemento
+ * @param z valor utilizado para pesquisa
+ */
+void search_delete(TreeRB **root, TreeRB *aux, Record z){
     while (aux != nill && z.key != aux->reg.key){
         if (z.key < aux->reg.key)
             aux = aux->LC;
@@ -179,13 +185,18 @@ void search_delete(TreeRB *aux, Record z){
             aux = aux->RC;
     }
     if (aux->reg.key == z.key) {
-        printf("Node (%lf) found\n", z.key);
-        //     RB_delete(aux, aux, aux);
+        // printf("Node (%lf) found\n", z.key);
+        RB_delete(root, aux, aux, aux);
     }
     else 
-        printf("Node (%lf) does not exist\n", z.key);    fflush(stdout);
+        printf("Node (%lf) does not exist\n", z.key);
 }
 
+/**
+ * @brief imprime a estrutura RB na forma pre ordem
+ * 
+ * @param aux ponteiro da estrutura RB utilizado para impressao
+ */
 void preordemRB(TreeRB *aux) {
     if(aux != NULL && aux->reg.key != 0) {
         printf("%lf ", aux->reg.key);
@@ -194,6 +205,11 @@ void preordemRB(TreeRB *aux) {
     }
 }
 
+/**
+ * @brief imprime a estrutura RB na forma pre central
+ * 
+ * @param aux ponteiro da estrutura RB utilizado para impressao
+ */
 void centralRB(TreeRB *aux) {
     if(aux != NULL && aux->reg.key != 0) {
         centralRB(aux->LC);
@@ -202,6 +218,11 @@ void centralRB(TreeRB *aux) {
     }
 }
 
+/**
+ * @brief imprime a estrutura RB na forma pos ordem
+ * 
+ * @param aux ponteiro da estrutura RB utilizado para impressao
+ */
 void posordemRB(TreeRB *aux) {
     if(aux != NULL && aux->reg.key != 0) {
         posordemRB(aux->LC);
@@ -210,11 +231,13 @@ void posordemRB(TreeRB *aux) {
     }
 }
 
-//print as a tree
-// void tree_print(TreeRB *aux, TreeRB *nill){
-// }
-
-//check in case of overwrite
+/**
+ * @brief verifica se um valor ja existe na estrutura RB
+ * 
+ * @param aux ponteiro da estrutura RB utiliza para pesquisa do elemento
+ * @param z valor pesquisa na estrutura
+ * @param chk valor utilizado para controle, 1 -> encontrou
+ */
 int check(TreeRB *aux, double z, int chk){
     while (aux != nill && z != aux->reg.key){
         if (z < aux->reg.key)
@@ -226,6 +249,136 @@ int check(TreeRB *aux, double z, int chk){
         chk = 1;
     return chk;
 }
+
+//fix the balance after a node deletion
+void RB_delete_fix(TreeRB **root, TreeRB *x, TreeRB *w){
+    while (x != (*root) && x->color == black) {
+        //x is LC
+        if (x == x->P->LC){
+            w = x->P->RC;               //w is x's sibling
+            //case 1: x's sibling w is red, w must have black children 
+            //we switch colors of w <=> x.p and then Left_Rotation
+            if (w->color == red){	
+                w->color    = black;    //case 1 is converted into case 2,3 or 4.
+                x->P->color = red;
+                Left_Rotate(root, x->P);      //x->p with w
+                w = x->P->RC;
+            }
+            //case 2: x's sibling w is black, and both of w's children are black to 
+            //compensate for removing 1 black we add extra black to x.p which and
+            //we do so by repeating (while loop) with x.p as new node x was red or black
+	    //we remove 1 black color from x and w
+            else if (w->LC->color == black && w->RC->color == black){	
+                w->color = red;
+                x = x->P;
+            }
+            //case 3:x's sibling w is black, w's LC is red and w's RC is black
+            //switch colors w <=> w.LC and perform Right_Rotation on w without 
+            //violations of RBT
+            else if (w->RC->color == black){
+                w->LC->color = black;	//new sibling w of x is now black with red RC
+                w->color     = red;	//thus case 3 transformed to case 4
+                Right_Rotate(root, w);
+                w = x->P->RC;
+            }
+            //case 4: x's sibling w is black and w's RC is red
+            //color changes and Left_Rotation on x.p we can remove the extra black on x
+            //making it singly black. Setting x=root we terminate the while loop
+            else{
+                w->color     = x->P->color;				
+                x->P->color  = black;	
+                w->RC->color = black;	
+                Left_Rotate(root, x->P);
+                x = (*root);               //for termination of loop
+            }
+        }
+        //x is RC
+        else{
+            w = x->P->LC;
+            if (w->color == red){
+                w->color    = black;
+                x->P->color = red;
+                Right_Rotate(root, x->P);
+                w = x->P->LC;
+            }
+            else if (w->RC->color == black && w->LC->color == black){
+                w->color=red;
+                x=x->P;
+            }
+            else if (w->LC->color == black) {
+                w->RC->color = black;
+                w->color     = red;
+                Left_Rotate(root, w);
+                w = x->P->LC;
+            }
+            else{
+                w->color     = x->P->color;
+                x->P->color  = black;
+                w->LC->color = black;
+                Right_Rotate(root, x->P);
+                x = (*root);
+            }
+        }
+    }
+    x->color = black;
+}
+
+
+//delete z node, if z has fewer than 2 children we remove it and replace 
+//it with successor(always successor->LC=nill)
+void RB_delete(TreeRB **root, TreeRB* z, TreeRB* y, TreeRB *x){	
+    enum type originalcolor;	//keep track of x which moves into y's original position
+    originalcolor = y->color;	//Keep track of original color
+
+    //case 1: z has no LC
+    if (z->LC == nill){
+        x = z->RC;
+        RB_transplant(root, z, z->RC);    //pointers of z's R child and z's P point each other
+    }
+    //case 2: z has LC but no RC
+    else if (z->RC == nill){
+        x = z->LC;
+        RB_transplant(root, z, z->LC);
+    }
+    //two cases: z has both Children
+    else{
+        y = tree_successor(z->RC);      //find successor
+        originalcolor = y->color;       //save color of successor
+        x=y->RC;
+        //successor has no LC=>nill (its the minimum to the left)
+        if (y->P == z){
+            x->P = y;
+        }
+        //swap subtree of y->RC pointing to y->P (before we move y to z)
+        else {
+            RB_transplant(root, y, y->RC);		
+            y->RC    = z->RC;		//partial change of y
+            y->RC->P = y;
+        }
+        //replacement of z with y (also builds subtrees)
+        RB_transplant(root, z, y);
+        y->LC    = z->LC;
+        y->LC->P = y;
+        y->color = z->color;
+    }
+    //imbalanced RBT only possible when we delete a black node
+    if (originalcolor == black)
+        RB_delete_fix(root, x,x);
+    free(z);
+}
+
+//replace the subtree rooted at node aux with the subtree rooted at aux-LC or aux->RC
+void RB_transplant(TreeRB **root, TreeRB *aux, TreeRB *auxchild){
+    if (aux->P == nill)             //if aux=root child becomes root
+        (*root) = auxchild;
+    else if (aux == aux->P->LC)     //if child is a LC
+        aux->P->LC = auxchild;      //connect grandparent's->LC with child
+    else 
+    	aux->P->RC = auxchild;     //if child is RC connect grandparent's->RC with child
+    auxchild->P = aux->P;	   //connect child to point to parent
+}
+
+
 
 // /**
 //  * @brief Possui a mesma funcao da insercao, com a diferenca de que testa se
@@ -256,131 +409,3 @@ int check(TreeRB *aux, double z, int chk){
 //         }
 //     }
 // }
-
-//fix the balance after a node deletion
-void RB_delete_fix(TreeRB *x, TreeRB *w){
-    // while (x != root && x->color == black) {
-    //     //x is LC
-    //     if (x == x->P->LC){
-    //         w = x->P->RC;               //w is x's sibling
-    //         //case 1: x's sibling w is red, w must have black children 
-    //         //we switch colors of w <=> x.p and then Left_Rotation
-    //         if (w->color == red){	
-    //             w->color    = black;    //case 1 is converted into case 2,3 or 4.
-    //             x->P->color = red;
-    //             Left_Rotate(x->P);      //x->p with w
-    //             w = x->P->RC;
-    //         }
-    //         //case 2: x's sibling w is black, and both of w's children are black to 
-    //         //compensate for removing 1 black we add extra black to x.p which and
-    //         //we do so by repeating (while loop) with x.p as new node x was red or black
-	//     //we remove 1 black color from x and w
-    //         else if (w->LC->color == black && w->RC->color == black){	
-    //             w->color = red;
-    //             x = x->P;
-    //         }
-    //         //case 3:x's sibling w is black, w's LC is red and w's RC is black
-    //         //switch colors w <=> w.LC and perform Right_Rotation on w without 
-    //         //violations of RBT
-    //         else if (w->RC->color == black){
-    //             w->LC->color = black;	//new sibling w of x is now black with red RC
-    //             w->color     = red;	//thus case 3 transformed to case 4
-    //             Right_Rotate(w);
-    //             w = x->P->RC;
-    //         }
-    //         //case 4: x's sibling w is black and w's RC is red
-    //         //color changes and Left_Rotation on x.p we can remove the extra black on x
-    //         //making it singly black. Setting x=root we terminate the while loop
-    //         else{
-    //             w->color     = x->P->color;				
-    //             x->P->color  = black;	
-    //             w->RC->color = black;	
-    //             Left_Rotate(x->P);
-    //             x = root;               //for termination of loop
-    //         }
-    //     }
-    //     //x is RC
-    //     else{
-    //         w = x->P->LC;
-    //         if (w->color == red){
-    //             w->color    = black;
-    //             x->P->color = red;
-    //             Right_Rotate(x->P);
-    //             w = x->P->LC;
-    //         }
-    //         else if (w->RC->color == black && w->LC->color == black){
-    //             w->color=red;
-    //             x=x->P;
-    //         }
-    //         else if (w->LC->color == black) {
-    //             w->RC->color = black;
-    //             w->color     = red;
-    //             Left_Rotate(w);
-    //             w = x->P->LC;
-    //         }
-    //         else{
-    //             w->color     = x->P->color;
-    //             x->P->color  = black;
-    //             w->LC->color = black;
-    //             Right_Rotate(x->P);
-    //             x = root;
-    //         }
-    //     }
-    // }
-    // x->color = black;
-}
-
-
-//delete z node, if z has fewer than 2 children we remove it and replace 
-//it with successor(always successor->LC=nill)
-void RB_delete(TreeRB* z, TreeRB* y, TreeRB *x){	
-    // enum type originalcolor;	//keep track of x which moves into y's original position
-    // originalcolor = y->color;	//Keep track of original color
-
-    // //case 1: z has no LC
-    // if (z->LC == nill){
-    //     x = z->RC;
-    //     RB_transplant(z, z->RC);    //pointers of z's R child and z's P point each other
-    // }
-    // //case 2: z has LC but no RC
-    // else if (z->RC == nill){
-    //     x = z->LC;
-    //     RB_transplant(z, z->LC);
-    // }
-    // //two cases: z has both Children
-    // else{
-    //     y = tree_successor(z->RC);      //find successor
-    //     originalcolor = y->color;       //save color of successor
-    //     x=y->RC;
-    //     //successor has no LC=>nill (its the minimum to the left)
-    //     if (y->P == z){
-    //         x->P = y;
-    //     }
-    //     //swap subtree of y->RC pointing to y->P (before we move y to z)
-    //     else {
-    //         RB_transplant(y, y->RC);		
-    //         y->RC    = z->RC;		//partial change of y
-    //         y->RC->P = y;
-    //     }
-    //     //replacement of z with y (also builds subtrees)
-    //     RB_transplant(z, y);
-    //     y->LC    = z->LC;
-    //     y->LC->P = y;
-    //     y->color = z->color;
-    // }
-    // //imbalanced RBT only possible when we delete a black node
-    // if (originalcolor == black)
-    //     RB_delete_fix(x,x);
-    // free(z);
-}
-
-//replace the subtree rooted at node aux with the subtree rooted at aux-LC or aux->RC
-void RB_transplant(TreeRB *aux, TreeRB *auxchild){
-    // if (aux->P == nill)             //if aux=root child becomes root
-    //     root = auxchild;
-    // else if (aux == aux->P->LC)     //if child is a LC
-    //     aux->P->LC = auxchild;      //connect grandparent's->LC with child
-    // else 
-    // 	aux->P->RC = auxchild;     //if child is RC connect grandparent's->RC with child
-    // auxchild->P = aux->P;	   //connect child to point to parent
-}

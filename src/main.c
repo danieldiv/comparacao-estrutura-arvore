@@ -217,6 +217,12 @@ void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int *tam_a
         insertItemRB(raizRB, r, &contRP, &cont);
 	}
 	printAllTree(*raizS, *raizAVL, *raizRB);
+
+	r.key = 8;
+	search_delete(raizRB, *raizRB, r);
+
+	printf("\nApoz excluir o valor %lf da arvore red black...\n", r.key);
+	printAllTree(*raizS, *raizAVL, *raizRB);
 }
 
 /**
