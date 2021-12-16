@@ -27,8 +27,6 @@ Comparação das estruturas tipo arvore
 
 ## Informações
 
-> O metodo de exclusao e relacionados nao foram utilizados
-
 > S - Simples
 
 > AVL - AVL
