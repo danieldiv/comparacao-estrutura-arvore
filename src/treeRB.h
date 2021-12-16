@@ -25,16 +25,16 @@ void inicializaTreeRB(TreeRB **root);
 
 TreeRB *tree_successor(TreeRB *aux_succ);
 
-void Left_Rotate(TreeRB **root, TreeRB *x);
-void Right_Rotate(TreeRB **root, TreeRB *y);
+void rotacaoEsquerda(TreeRB **root, TreeRB *item);
+void rotacaoDireita(TreeRB **root, TreeRB *item);
 void fix_insert(TreeRB **root, TreeRB *aux);
 void insertItemRB(TreeRB **root, Record r, int *contadorRP, int *cont);
 
 void rb_insert(TreeRB **root, TreeRB *x,TreeRB *y,TreeRB *temp);
-void RB_transplant(TreeRB **root, TreeRB *aux,TreeRB *auxchild);
 
-void RB_delete_fix(TreeRB **root, TreeRB *x,TreeRB *w);
 void RB_delete(TreeRB **root, TreeRB* z,TreeRB* y,TreeRB *x);
+void RB_delete_fix(TreeRB **root, TreeRB *x,TreeRB *w);
+void RB_transplant(TreeRB **root, TreeRB *aux,TreeRB *auxchild);
 
 void searchRB(TreeRB *aux, Record z, double *quant);
 void search_delete(TreeRB **root, TreeRB *aux, Record z);

@@ -7,6 +7,10 @@ void resetTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB);
 void insertAllTree(TreeS **raizS, TreeAVL **raizAVL, TreeRB **raizRB, int *tam_aux);
 void printAllTree(TreeS *raizS, TreeAVL *raizAVL, TreeRB *raizRB);
 
+/**
+ * @brief Menu principal
+ * 
+ */
 int main() {
 	system("clear");
 
